@@ -1,0 +1,9 @@
+.App {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    position: absolute;
+  text-align: center;
+  background-color: gray;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}
