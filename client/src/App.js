@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import io from 'socket.io-client';
-import GetAccount from './GetAccount.js'
-import DisplayAccount from './DisplayAccount'
-import QRCard from './QRCard'
+import GetAccount from './components/Lightning/GetAccount.js'
+import DisplayAccount from './components/Lightning/DisplayAccount.js'
+import QRCard from './components/Lightning/QRCard.js'
 
 import Web3 from "web3";
-import smartContractRegistro from "./registro.json";
+//import smartContractRegistro from "";
+import smartContractUsers from "./contratos/usuarios.json";
 
 import Layout from './components/Layout'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -26,7 +27,8 @@ function App() {
   const [balance, setBalance] = useState(null);
   const [accountshow, setAccountshow] = useState(null);
   const [balanceshow, setBalanceshow] = useState(null);
-  const [contract, setContract] = useState();
+  //const [contract, setContract] = useState();
+  const [contractusers, setContractUsers] = useState();
   const [Gerente, setGerente] = useState();
   const [Cajero, setCajero] = useState();
   const [ListarInformacion, setListarInformacion] = useState([]);
@@ -53,12 +55,20 @@ function App() {
         setBalance(balanceEth);
         setBalanceshow(balanceEth.slice(0, 5));
 
-        const contractInstance = new web3Instance.eth.Contract(
-          smartContractRegistro,
-          smartContractRegistro && "0xa067b8b63e809eCdDdD51a99d255100551e28F42"
-        );
-        setContract(contractInstance);
+        //const contractInstance = new web3Instance.eth.Contract(
+        //  smartContractRegistro,
+        //  smartContractRegistro && ""
+        //);
+        //setContract(contractInstance);
         // console.log("contractInstance ==>", contractInstance);
+
+
+        const contractusersInstance = new web3Instance.eth.Contract(
+          smartContractUsers,
+          smartContractUsers && "0xa067b8b63e809eCdDdD51a99d255100551e28F42"
+        );
+        setContractUsers(contractusersInstance);
+
       } catch (error) {
         console.error(error);
       }
@@ -69,14 +79,14 @@ function App() {
 
   const ListarRegistros = async () => {
 
-    if (contract) {
+    if (contractusers) {
       try {
-        const taskCounter = await contract.methods.taskCounter().call();
+        const taskCounter = await contractusers.methods.taskCounter().call();
 
         let arrayTarea = [];
 
         for (let i = 0; i <= taskCounter; i++) {
-          const infotarea = await contract.methods.tasks(i).call();
+          const infotarea = await contractusers.methods.tasks(i).call();
 
           if (infotarea.title != "") {
             const tarea = {
@@ -100,10 +110,10 @@ function App() {
   };
 
   const Autenticacion = async () => {
-    if (contract) {
-      const taskCounter = await contract.methods.taskCounter().call();
+    if (contractusers) {
+      const taskCounter = await contractusers.methods.taskCounter().call();
       for (let i = 0; i <= taskCounter; i++) {
-        const temp = await contract.methods.tasks(i).call();
+        const temp = await contractusers.methods.tasks(i).call();
         console.log(temp.done)
         if (temp.description == account) {
           setCajero(true)
@@ -128,7 +138,7 @@ function App() {
     //console.log(formulario);
 
     try {
-      const result = await contract.methods.createTask(formulario.title, formulario.description,).send({ from: account });
+      const result = await contractusers.methods.createTask(formulario.title, formulario.description,).send({ from: account });
       console.log(result);
     } catch (error) {
       console.error(error);
@@ -144,9 +154,9 @@ function App() {
   const [formulario, setFormulario] = useState(estadoInicialFormulario);
 
   const cambioEstadoTarea = async (taskId) => {
-    if (contract && account) {
+    if (contractusers && account) {
       try {
-        await contract.methods.cambioEstado(taskId).send({ from: account });
+        await contractusers.methods.cambioEstado(taskId).send({ from: account });
         ListarRegistros(); // Refresco
       } catch (error) {
         console.error('Error al cambiar estado:', error);
@@ -154,9 +164,9 @@ function App() {
     }
   };
 
-  useEffect(() => { ListarRegistros(); }, [contract]);
+  useEffect(() => { ListarRegistros(); }, [contractusers]);
 
-  useEffect(() => { Autenticacion(); }, [contract]);
+  useEffect(() => { Autenticacion(); }, [contractusers]);
 
   useEffect(() => {
     conectarWallet();
@@ -206,7 +216,12 @@ function App() {
       <BrowserRouter>
         <Layout Gerente={Gerente} accountshow={accountshow}>
           <Routes>
-            <Route path='/' element={<Home />} />
+            <Route path='/' element={<Home
+              acceptUserInfo={acceptUserInfo}
+              userInfo={userInfo}
+              acceptInvoiceAndQuote={acceptInvoiceAndQuote}
+              invoiceAndQuote={invoiceAndQuote}
+              paidIndicator={paidIndicator} />} />
             <Route path='/productos' element={<Productos />} />
             <Route path='/ventas' element={<Ventas />} />
             <Route path='/recibos' element={<Recibos />} />
@@ -217,10 +232,6 @@ function App() {
               ListarInformacion={ListarInformacion}
               cambioEstadoTarea={cambioEstadoTarea} />} />
           </Routes>
-          <GetAccount passUpUserInfo={acceptUserInfo} />
-          {userInfo && <DisplayAccount passUpInvoice={acceptInvoiceAndQuote} userInfo={userInfo} />}
-          {invoiceAndQuote && <QRCard invoiceAndQuote={invoiceAndQuote} />}
-          {paidIndicator && <h1> Transaccion exitosa. </h1>}
         </Layout>
       </BrowserRouter>
 

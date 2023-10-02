@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import CreateInvoice from './CreateInvoice.js'
-import CountdownTimer from './CountdownTimer'
+import CountdownTimer from './CountdownTimer.js'
 
 const DisplayAccount = props => {
 

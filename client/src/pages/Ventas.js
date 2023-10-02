@@ -1,7 +1,7 @@
 import React from "react";
 
 const Ventas = () => {
-    return <div className='dark:text-white'>Ventas</div>
+    return <div className='dark:text-white flex justify-center'>Ventas</div>
 };
 
 export default Ventas;

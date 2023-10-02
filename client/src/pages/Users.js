@@ -2,7 +2,7 @@ import React from 'react'
 
 const Users = (props) => {
 
-    return <div className='dark:text-white'>
+    return <div className='dark:text-white flex justify-center'>
 
         <form onSubmit={props.registrarInformacion} className="formulario">
             <h2>Añadir usuario</h2>
@@ -27,8 +27,8 @@ const Users = (props) => {
                         <td><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => props.cambioEstadoTarea(item.id)}>
                             {item.done ? 'Gerente' : 'Cajero'}
                         </button></td>
-                        <td><input placeholder={item.title} /></td>
-                        <td><input placeholder={item.description} /></td>
+                        <td>{item.title}</td>
+                        <td>{item.description}</td>
                     </tr>
 
                 ))}

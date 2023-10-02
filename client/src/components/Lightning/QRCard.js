@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import CountdownTimer from './CountdownTimer'
+import CountdownTimer from './CountdownTimer.js'
 import QRCode from 'react-qr-code'
 
 const QRCard = (props) => {
