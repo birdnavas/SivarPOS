@@ -38,7 +38,7 @@ const CreateInvoice = props => {
 			<form onSubmit={getInvoice}>
 				<div className="InvoiceDetails">
 				<label><p>{/*props.currency*/}</p>
-					<input type='number' step='.00000001' name='amountInput' value={0.10}/>
+					<input type='hidden' step='.00000001' name='amountInput' value={props.totalSum}/>
 				</label>
 				</div>
 				<input className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full' type='submit' value='PAGAR' name='submitButton'/>

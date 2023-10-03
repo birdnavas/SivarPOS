@@ -3,10 +3,10 @@ import { Link, useLocation } from 'react-router-dom'
 
 import { BsArrowLeftCircle } from 'react-icons/bs'
 import { AiFillPieChart } from 'react-icons/ai'
-import { AiFillCalculator } from 'react-icons/ai'
-import { AiOutlineShopping } from 'react-icons/ai'
-import { AiFillDollarCircle } from 'react-icons/ai'
+import { FcShop } from 'react-icons/fc'
+import { FcCurrencyExchange } from 'react-icons/fc'
 import { FaUsers } from 'react-icons/fa'
+import { FcSurvey } from 'react-icons/fc'
 import Logo from '../assets/images/logo.svg'
 import HamburgerButton from './HamburgerMenuButton/HamburgerButton'
 
@@ -16,10 +16,10 @@ const Sidebar = () => {
   const location = useLocation()
 
   const Menus = [
-    { title: 'Productos', path: '/productos', src: <AiOutlineShopping /> },
-    { title: 'Ventas', path: '/ventas', src: <AiFillCalculator /> },
-    { title: 'Recibos', path: '/recibos', src: <AiFillDollarCircle /> },
-    { title: 'Panel de control', path: '/control', src: <AiFillPieChart />, gap: 'true' },
+    { title: 'Caja', path: '/', src: <FcCurrencyExchange /> },
+    { title: 'Tienda', path: '/tienda', src: <FcShop /> },
+    { title: 'Inventario', path: '/productos', src: <FcSurvey /> },
+    { title: 'Panel', path: '/control', src: <AiFillPieChart />, gap: 'true' },
     { title: 'Usuarios', path: '/users', src: <FaUsers /> }
   ]
 
@@ -36,7 +36,7 @@ const Sidebar = () => {
           } absolute text-3xl bg-white fill-slate-800  rounded-full cursor-pointer top-9 -right-4 dark:fill-gray-400 dark:bg-gray-800`}
           onClick={() => setOpen(!open)}
         />
-        <Link to='/'>
+        <Link>
           <div className={`flex ${open && 'gap-x-4'} items-center`}>
             <img src={Logo} alt='' className='pl-2' />
             {open && (

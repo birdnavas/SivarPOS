@@ -28,6 +28,7 @@ const DisplayAccount = props => {
 							<CreateInvoice currency={curr.currency} 
 								handle={props.userInfo.handle}
 								passUpInvoice={passUpInvoice}
+								totalSum={props.totalSum}
 								/>
 						</div>
 						)

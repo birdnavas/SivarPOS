@@ -5,7 +5,7 @@ import DisplayAccount from './components/Lightning/DisplayAccount.js'
 import QRCard from './components/Lightning/QRCard.js'
 
 import Web3 from "web3";
-//import smartContractRegistro from "";
+import smartContractProductos from "./contratos/productos.json";
 import smartContractUsers from "./contratos/usuarios.json";
 
 import Layout from './components/Layout'
@@ -17,6 +17,7 @@ import Ventas from './pages/Ventas.js'
 import Recibos from './pages/Recibos.js'
 import Control from './pages/Control.js'
 import Users from './pages/Users.js';
+import Tienda from './pages/Market.js';
 
 function App() {
 
@@ -27,7 +28,7 @@ function App() {
   const [balance, setBalance] = useState(null);
   const [accountshow, setAccountshow] = useState(null);
   const [balanceshow, setBalanceshow] = useState(null);
-  //const [contract, setContract] = useState();
+  const [contractproductos, setContractproductos] = useState();
   const [contractusers, setContractUsers] = useState();
   const [Gerente, setGerente] = useState();
   const [Cajero, setCajero] = useState();
@@ -55,12 +56,11 @@ function App() {
         setBalance(balanceEth);
         setBalanceshow(balanceEth.slice(0, 5));
 
-        //const contractInstance = new web3Instance.eth.Contract(
-        //  smartContractRegistro,
-        //  smartContractRegistro && ""
-        //);
-        //setContract(contractInstance);
-        // console.log("contractInstance ==>", contractInstance);
+        const contractproductosInstance = new web3Instance.eth.Contract(
+          smartContractProductos,
+          smartContractProductos && "0xd185A395bd3784676A69ECF387e80E39B4D3Cdf7"
+        );
+        setContractproductos(contractproductosInstance);
 
 
         const contractusersInstance = new web3Instance.eth.Contract(
@@ -76,7 +76,7 @@ function App() {
       setMetamask(false);
     }
   };
-
+{/*-------------------------------------SMARTCONTRACT--USUARIOS------------------------------------------------------*/}
   const ListarRegistros = async () => {
 
     if (contractusers) {
@@ -167,6 +167,8 @@ function App() {
   useEffect(() => { ListarRegistros(); }, [contractusers]);
 
   useEffect(() => { Autenticacion(); }, [contractusers]);
+{/*-------------------------------------SMARTCONTRACT--USUARIOS------------------------------------------------------*/}
+
 
   useEffect(() => {
     conectarWallet();
@@ -217,12 +219,14 @@ function App() {
         <Layout Gerente={Gerente} accountshow={accountshow}>
           <Routes>
             <Route path='/' element={<Home
+              account={account} contractproductos={contractproductos}
               acceptUserInfo={acceptUserInfo}
               userInfo={userInfo}
               acceptInvoiceAndQuote={acceptInvoiceAndQuote}
               invoiceAndQuote={invoiceAndQuote}
               paidIndicator={paidIndicator} />} />
-            <Route path='/productos' element={<Productos />} />
+            <Route path='/productos' element={<Productos account={account} contractproductos={contractproductos} />} />
+            <Route path='/tienda' element={<Tienda account={account} contractproductos={contractproductos} />} />
             <Route path='/ventas' element={<Ventas />} />
             <Route path='/recibos' element={<Recibos />} />
             <Route path='/control' element={<Control />} />
