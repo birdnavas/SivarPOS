@@ -1,17 +1,42 @@
 import React from 'react'
 
 const Users = (props) => {
+ 
+    return <div className='dark:text-white flex justify-center  gap-12'>
 
-    return <div className='dark:text-white flex justify-center'>
+        <form onSubmit={props.registrarInformacion} className=' bg-white-100 p-4 my-200' >
+            <label for="nombre" class="block text-gray-700 font-bold mb-2">Nombre</label>
+            <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                class="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300"
+                placeholder="Escribe tu nombre" onChange={props.ManejarFormulario} value={props.formulario.title} require
 
-        <form onSubmit={props.registrarInformacion} className="formulario">
-            <h2>Añadir usuario</h2>
-            <input placeholder="Nombre" type="text" id="title" name="title" onChange={props.ManejarFormulario} value={props.formulario.title} required></input><br></br>
-            <input placeholder="Direccion" type="text" id="description" name="description" onChange={props.ManejarFormulario} value={props.formulario.description} required></input><br></br>
-            <button className="boton" type="submit">Añadir</button>
+                
+            />
+            <div class="mb-4">
+                <label for="correo" class="block text-gray-700 font-bold mb-2">Cuenta</label>
+                <input
+                    type="email"
+                    id="correo"
+                    name="correo"
+                    class="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300"
+                    placeholder="cuenta wallet" onChange={props.ManejarFormulario} value={props.formulario.description} required
+                />
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300">Enviar</button>
+                </div>
         </form>
 
-        <table className=''>
+
+
+
+
+
+        <table className='table-fixed '>
             <thead>
                 <tr>
                     <th className="px-[2rem] py-3 bg-[#3853DA] text-white border-b border-gray-300">Rol</th>
@@ -24,7 +49,7 @@ const Users = (props) => {
                 {props.ListarInformacion.map((item) => (
 
                     <tr key={item.id}>
-                        <td><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => props.cambioEstadoTarea(item.id)}>
+                        <td><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded pt-2 border-b border-black-100" onClick={() => props.cambioEstadoTarea(item.id)}>
                             {item.done ? 'Gerente' : 'Cajero'}
                         </button></td>
                         <td>{item.title}</td>
