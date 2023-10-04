@@ -12,7 +12,7 @@ import Layout from './components/Layout'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Home from './pages/Home'
-import Productos from './pages/Productos.js'
+import Productos from './pages/Productos.jsx'
 import Ventas from './pages/Ventas.js'
 import Recibos from './pages/Recibos.js'
 import Control from './pages/Control.js'
@@ -58,14 +58,14 @@ function App() {
 
         const contractproductosInstance = new web3Instance.eth.Contract(
           smartContractProductos,
-          smartContractProductos && "0xd185A395bd3784676A69ECF387e80E39B4D3Cdf7"
+          smartContractProductos && "0xbaAA2a3237035A2c7fA2A33c76B44a8C6Fe18e87"
         );
         setContractproductos(contractproductosInstance);
 
 
         const contractusersInstance = new web3Instance.eth.Contract(
           smartContractUsers,
-          smartContractUsers && "0xa067b8b63e809eCdDdD51a99d255100551e28F42"
+          smartContractUsers && "0xf25186B5081Ff5cE73482AD761DB0eB0d25abfBF"
         );
         setContractUsers(contractusersInstance);
 
@@ -214,7 +214,7 @@ function App() {
   }
 
   return (
-    <div className="className='dark:text-white'">
+    <div className="dark:text-white">
       <BrowserRouter>
         <Layout Gerente={Gerente} accountshow={accountshow}>
           <Routes>

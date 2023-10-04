@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const Productos = (props) => {
   const estadoInicialProductos = {
+    id: "",
     name: "",
     description: "",
     stock: "",
@@ -36,8 +37,8 @@ const Productos = (props) => {
   };
 
   const [producto, setProducto] = useState(estadoInicialProductos);
-
   const [ListarInformacion, setListarInformacion] = useState([]);
+  
   const ListarRegistros = async () => {
     if (props.contractproductos) {
       try {
@@ -73,6 +74,48 @@ const Productos = (props) => {
     }
   };
 
+  // ! FUNCIÓN EDITAR PRODUCTO
+  const onEdit = async (producto) => {
+    if (!producto || !producto.id || !producto.name || !producto.description || !producto.stock || !producto.expirationDate || !producto.price) {
+      console.error("Los detalles del producto son inválidos.");
+      return;
+    }
+  
+    try {
+      const result = await props.contractproductos.methods
+        .editProduct(
+          producto.id,
+          producto.name,
+          producto.description,
+          producto.stock,
+          producto.expirationDate,
+          producto.price
+        )
+        .send({ from: props.account });
+  
+      console.log(result);
+      // Actualizar la lista de productos después de la edición
+      ListarRegistros();
+    } catch (error) {
+      console.error("Error al editar el producto:", error);
+    }
+  };
+  
+  // ! FUNCIÓN ELIMINAR PRODUCTO
+
+  const onDeleteProduct = async (productId) => {
+    try {
+      const result = await props.contractproductos.methods
+        .deleteProduct(productId)
+        .send({ from: props.account });
+
+      console.log(result);
+      ListarRegistros();
+    } catch (error) {
+      console.error("Error al eliminar el producto:", error);
+    }
+  };
+
   useEffect(() => {
     ListarRegistros();
   }, [props.contractproductos]);
@@ -90,7 +133,7 @@ const Productos = (props) => {
               <th className="px-4 py-2 text-lg">PRECIO</th>
             </tr>
           </thead>
-          <tbody className="">
+          <tbody className="dark:text-black">
             <td className="px-4 py-2">
               <input
                 type="text"
@@ -168,16 +211,34 @@ const Productos = (props) => {
             <th className=" py-2 text-lg">PRECIO</th>
           </tr>
         </thead>
+
+        <></>
         <tbody className="dark:text-white">
-          {ListarInformacion.filter((item) => item.id > 0).map((item) => (
-            <tr className="text-center px-4 py-2 text-lg">
-              <td>{item.name}</td>
-              <td>{item.description}</td>
-              <td>{item.stock}</td>
-              <td>{item.expirationDate}</td>
-              <td>{item.price}</td>
-            </tr>
-          ))}
+          {ListarInformacion.filter((item) => item.id > 0).map(
+            (item, index) => (
+              <tr className="text-center px-4 py-2 text-lg" key={index}>
+                <td>{item.name}</td>
+                <td>{item.description}</td>
+                <td>{item.stock}</td>
+                <td>{item.expirationDate}</td>
+                <td>{item.price}</td>
+                <td className="flex justify-center">
+                  <button
+                    className="mr-2 bg-[#FFD658] rounded-[10px] p-2 text-lg"
+                    onClick={() => onEdit(item)} // Pasa el objeto 'item' como argumento
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className="bg-red-500 rounded-[10px] p-2 text-lg"
+                    onClick={() => onDeleteProduct(item.id)}
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            )
+          )}
         </tbody>
       </table>
     </div>
