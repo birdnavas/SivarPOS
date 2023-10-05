@@ -2,9 +2,9 @@ import React from 'react'
 
 const Users = (props) => {
  
-    return <div className='dark:text-white flex justify-center  gap-12'>
+    return <div className='flex justify-center gap-12 dark:text-white'>
 
-        <form onSubmit={props.registrarInformacion} className=' bg-white-100 p-4 my-200' >
+        <form onSubmit={props.registrarInformacion} className='p-4 bg-white-100 my-200' >
             <label for="nombre" class="block text-gray-700 font-bold mb-2">Nombre</label>
             <input
                 type="text"
@@ -36,7 +36,7 @@ const Users = (props) => {
 
 
 
-        <table className='table-fixed '>
+        <table className='table-auto'>
             <thead>
                 <tr>
                     <th className="px-[2rem] py-3 bg-[#3853DA] text-white border-b border-gray-300">Rol</th>
@@ -49,11 +49,11 @@ const Users = (props) => {
                 {props.ListarInformacion.map((item) => (
 
                     <tr key={item.id}>
-                        <td><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded pt-2 border-b border-black-100" onClick={() => props.cambioEstadoTarea(item.id)}>
+                        <td><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg w-[100px]" onClick={() => props.cambioEstadoTarea(item.id)}>
                             {item.done ? 'Gerente' : 'Cajero'}
                         </button></td>
-                        <td>{item.title}</td>
-                        <td>{item.description}</td>
+                        <td className='border rounded-lg table-auto border-slate-200 ' >{item.title}</td>
+                        <td className='border rounded-lg table-auto border-slate-200 '>{item.description}</td>
                     </tr>
 
                 ))}
