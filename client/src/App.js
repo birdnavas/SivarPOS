@@ -58,14 +58,14 @@ function App() {
 
         const contractproductosInstance = new web3Instance.eth.Contract(
           smartContractProductos,
-          smartContractProductos && "0xbaAA2a3237035A2c7fA2A33c76B44a8C6Fe18e87"
+          smartContractProductos && "0x915640e3EC49f4833983Ea5e196e77B93bA8e489"
         );
         setContractproductos(contractproductosInstance);
 
 
         const contractusersInstance = new web3Instance.eth.Contract(
           smartContractUsers,
-          smartContractUsers && "0xf25186B5081Ff5cE73482AD761DB0eB0d25abfBF"
+          smartContractUsers && "0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F"
         );
         setContractUsers(contractusersInstance);
 
@@ -216,7 +216,7 @@ function App() {
   return (
     <div className="dark:text-white">
       <BrowserRouter>
-        <Layout Gerente={Gerente} accountshow={accountshow}>
+        <Layout Gerente={Gerente} accountshow={accountshow} account={account}>
           <Routes>
             <Route path='/' element={<Home
               account={account} contractproductos={contractproductos}

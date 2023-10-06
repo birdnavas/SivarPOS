@@ -10,6 +10,20 @@ const Productos = (props) => {
     price: "",
   };
 
+  const [producto, setProducto] = useState(estadoInicialProductos);
+  const [ListarInformacion, setListarInformacion] = useState([]);
+  const [editingProductId, setEditingProductId] = useState(null);
+
+  // Estado para los campos de edición de productos individuales
+  const [editingProduct, setEditingProduct] = useState({
+    id: "",
+    name: "",
+    description: "",
+    stock: "",
+    expirationDate: "",
+    price: "",
+  });
+
   const registrarInformacion = async (e) => {
     e.preventDefault();
     console.log(producto);
@@ -25,10 +39,11 @@ const Productos = (props) => {
         )
         .send({ from: props.account });
       console.log(result);
+      setProducto(estadoInicialProductos);
+      ListarRegistros();
     } catch (error) {
       console.error(error);
     }
-    //ListarRegistros();
   };
 
   const ManejarFormulario = ({ target: { name, value } }) => {
@@ -36,9 +51,6 @@ const Productos = (props) => {
     setProducto({ ...producto, [name]: value });
   };
 
-  const [producto, setProducto] = useState(estadoInicialProductos);
-  const [ListarInformacion, setListarInformacion] = useState([]);
-  
   const ListarRegistros = async () => {
     if (props.contractproductos) {
       try {
@@ -62,11 +74,9 @@ const Productos = (props) => {
               stock: infotarea.stock,
               expirationDate: infotarea.expirationDate,
             };
-            //console.log(tarea);
             arrayTarea.push(tarea);
           }
         }
-        //console.log(arrayTarea);
         setListarInformacion(arrayTarea);
       } catch (error) {
         console.error("Error al actualizar valor:", error);
@@ -74,34 +84,55 @@ const Productos = (props) => {
     }
   };
 
-  // ! FUNCIÓN EDITAR PRODUCTO
-  const onEdit = async (producto) => {
-    if (!producto || !producto.id || !producto.name || !producto.description || !producto.stock || !producto.expirationDate || !producto.price) {
+  const onEdit = (productId) => {
+    setEditingProductId(productId);
+
+    // Inicializa el estado de edición del producto individual
+    const productToEdit = ListarInformacion.find(
+      (item) => item.id === productId
+    );
+    if (productToEdit) {
+      setEditingProduct(productToEdit);
+    }
+  };
+
+  const onSaveEdit = async () => {
+    if (
+      !editingProduct ||
+      !editingProduct.id ||
+      !editingProduct.name ||
+      !editingProduct.description ||
+      !editingProduct.stock ||
+      !editingProduct.expirationDate ||
+      !editingProduct.price
+    ) {
       console.error("Los detalles del producto son inválidos.");
       return;
     }
-  
+
     try {
       const result = await props.contractproductos.methods
         .editProduct(
-          producto.id,
-          producto.name,
-          producto.description,
-          producto.stock,
-          producto.expirationDate,
-          producto.price
+          editingProduct.id,
+          editingProduct.name,
+          editingProduct.description,
+          editingProduct.stock,
+          editingProduct.expirationDate,
+          editingProduct.price
         )
         .send({ from: props.account });
-  
+
       console.log(result);
-      // Actualizar la lista de productos después de la edición
+      setEditingProductId(null);
       ListarRegistros();
     } catch (error) {
       console.error("Error al editar el producto:", error);
     }
   };
-  
-  // ! FUNCIÓN ELIMINAR PRODUCTO
+
+  const onCancelEdit = () => {
+    setEditingProductId(null);
+  };
 
   const onDeleteProduct = async (productId) => {
     try {
@@ -208,12 +239,228 @@ const Productos = (props) => {
             <th className="px-4 py-2 text-lg ">DESCRIPCION</th>
             <th className="px-4 py-2 text-lg ">EXISTENCIAS</th>
             <th className="px-4 py-2 text-lg">CADUCIDAD</th>
-            <th className=" py-2 text-lg">PRECIO</th>
+            <th className="py-2 text-lg">PRECIO</th>
           </tr>
         </thead>
-
-        <></>
         <tbody className="dark:text-white">
+          {ListarInformacion.filter((item) => item.id > 0).map(
+            (item, index) => (
+              <tr className="text-center px-4 py-2 text-lg" key={index}>
+                <td>
+                  {editingProductId === item.id ? (
+                    <input
+                      className="w-full p-2 text-black border border-gray-300"
+                      type="text"
+                      name="name"
+                      value={editingProduct.name}
+                      onChange={(e) =>
+                        setEditingProduct({
+                          ...editingProduct,
+                          name: e.target.value,
+                        })
+                      }
+                    />
+                  ) : (
+                    item.name
+                  )}
+                </td>
+                <td>
+                  {editingProductId === item.id ? (
+                    <input
+                      className="w-full p-2 text-black border border-gray-300"
+                      type="text"
+                      name="description"
+                      value={editingProduct.description}
+                      onChange={(e) =>
+                        setEditingProduct({
+                          ...editingProduct,
+                          description: e.target.value,
+                        })
+                      }
+                    />
+                  ) : (
+                    item.description
+                  )}
+                </td>
+                <td>
+                  {editingProductId === item.id ? (
+                    <input
+                      className="w-full p-2 text-black border border-gray-300"
+                      type="number"
+                      name="stock"
+                      value={editingProduct.stock}
+                      onChange={(e) =>
+                        setEditingProduct({
+                          ...editingProduct,
+                          stock: e.target.value,
+                        })
+                      }
+                    />
+                  ) : (
+                    item.stock
+                  )}
+                </td>
+                <td>
+                  {editingProductId === item.id ? (
+                    <input
+                      className="w-full p-2 text-black border border-gray-300"
+                      type="date"
+                      name="expirationDate"
+                      value={editingProduct.expirationDate}
+                      onChange={(e) =>
+                        setEditingProduct({
+                          ...editingProduct,
+                          expirationDate: e.target.value,
+                        })
+                      }
+                    />
+                  ) : (
+                    item.expirationDate
+                  )}
+                </td>
+                <td>
+                  {editingProductId === item.id ? (
+                    <input
+                      className="w-full p-2 text-black border border-gray-300"
+                      type="text"
+                      name="price"
+                      value={editingProduct.price}
+                      onChange={(e) =>
+                        setEditingProduct({
+                          ...editingProduct,
+                          price: e.target.value,
+                        })
+                      }
+                    />
+                  ) : (
+                    item.price
+                  )}
+                </td>
+                <td className="flex justify-center">
+                  {editingProductId === item.id ? (
+                    <>
+                      <button
+                        className="mr-2 bg-[#4CAF50] rounded-[10px] p-2 text-lg"
+                        onClick={onSaveEdit}
+                      >
+                        Guardar
+                      </button>
+                      <button
+                        className="bg-red-500 rounded-[10px] p-2 text-lg"
+                        onClick={onCancelEdit}
+                      >
+                        Cancelar
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      className="mr-2 bg-[#FFD658] rounded-[10px] p-2 text-lg"
+                      onClick={() => onEdit(item.id)}
+                    >
+                      Editar
+                    </button>
+                  )}
+                  <button
+                    className="bg-red-500 rounded-[10px] p-2 text-lg"
+                    onClick={() => onDeleteProduct(item.id)}
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            )
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default Productos;
+
+{
+  /* <form onSubmit={registrarInformacion}>
+        <table className="min-w-full text-center text-sm font-light">
+          <thead>
+            <tr className="bg-[#3853DA] text-white">
+              <th className="px-4 py-2 text-lg">NOMBRE</th>
+              <th className="px-4 py-2 text-lg ">DESCRIPCION</th>
+              <th className="px-4 py-2 text-lg ">EXISTENCIAS</th>
+              <th className="px-4 py-2 text-lg">CADUCIDAD</th>
+              <th className="px-4 py-2 text-lg">PRECIO</th>
+            </tr>
+          </thead>
+          <tbody className="dark:text-black">
+            <td className="px-4 py-2">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                onChange={ManejarFormulario}
+                value={producto.name}
+                className="w-full p-2 border border-gray-300"
+              />
+            </td>
+
+            <td className="px-4 py-2">
+              <input
+                type="text"
+                id="description"
+                name="description"
+                onChange={ManejarFormulario}
+                value={producto.description}
+                className="w-full p-2 border border-gray-300"
+              />
+            </td>
+
+            <td className="px-4 py-2">
+              <input
+                type="number"
+                id="stock"
+                name="stock"
+                onChange={ManejarFormulario}
+                value={producto.stock}
+                className="w-full p-2 border border-gray-300"
+              />
+            </td>
+
+            <td className="px-4 py-2">
+              <input
+                type="date"
+                id="expirationDate"
+                name="expirationDate"
+                onChange={ManejarFormulario}
+                value={producto.expirationDate}
+                className="w-full p-2 border border-gray-300"
+              />
+            </td>
+
+            <td className="px-4 py-2">
+              <input
+                type="number"
+                id="price"
+                name="price"
+                onChange={ManejarFormulario}
+                value={producto.price}
+                className="w-full p-2 border border-gray-300"
+              />
+            </td>
+
+            <td className="">
+              <button
+                className="block bg-[#FFD658] rounded-[10px] p-4 text-xl font-sans font-medium"
+                type="submit"
+              >
+                AÑADIR
+              </button>
+            </td>
+          </tbody>
+        </table>
+      </form> */
+}
+
+{
+  /* <tbody className="dark:text-white">
           {ListarInformacion.filter((item) => item.id > 0).map(
             (item, index) => (
               <tr className="text-center px-4 py-2 text-lg" key={index}>
@@ -239,10 +486,5 @@ const Productos = (props) => {
               </tr>
             )
           )}
-        </tbody>
-      </table>
-    </div>
-  );
-};
-
-export default Productos;
+        </tbody> */
+}
