@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import BarraBusqueda from "./Searchbar";
 
 const Market = (props) => {
+  
+
   const [ListarInformacion, setListarInformacion] = useState([]);
   const ListarRegistros = async () => {
     if (props.contractproductos) {
@@ -79,9 +82,15 @@ const Market = (props) => {
   });
 
   return (
-    <div className="dark:text-black flex justify-center">
+    
+    <div className="dark:text-black flex justify-center p-4">
+      <div >
+       <BarraBusqueda />
+       </div>
+
+
   {ListarInformacion.filter((item) => item.id > 0).map((item) => (
-    <form onSubmit={handleSubmit} className="bg-gray-200 p-4 rounded-md shadow-md m-2">
+    <form onSubmit={handleSubmit} className="bg-gray-200 p-4 rounded-md shadow-md m-2 mt-11">
       <p className="text-center text-xl font-semibold">{item.name}</p>
       <p className="text-center text-lg">{item.price}</p>
       <button
@@ -90,11 +99,17 @@ const Market = (props) => {
       >
         Agregar +
       </button>
+      
     </form>
   ))}
+ 
+
+ 
 </div>
 
-  );
+
+
+  ); 
 };
 
 export default Market;
