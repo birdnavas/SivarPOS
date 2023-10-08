@@ -47,8 +47,6 @@ contract Productos{
     function editProduct(uint256 _productId, string memory _newName, string memory _newDescription, uint256 _newStock, string memory _newExpirationDate, uint256 _newPrice) public {
         require(_productId > 0 && _productId <= productCount, "Invalid product ID");
         Product storage product = products[_productId];
-        require(msg.sender == owner, "Not authorized to edit this product");
-
         // Actualizar los detalles del producto
         product.name = _newName;
         product.description = _newDescription;
@@ -62,7 +60,6 @@ contract Productos{
     function deleteProduct(uint256 _productId) public  {
         require(_productId > 0 && _productId <= productCount, "Invalid product ID");
         Product storage product = products[_productId];
-        require(msg.sender == owner , "Not authorized to delete this product");
 
         // Guarda los detalles del producto antes de eliminarlo
         string memory name = product.name;
@@ -77,27 +74,6 @@ contract Productos{
         emit ProductDeleted(_productId, name, description, stock, expirationDate, price);
 }
 
-    function purchaseProduct(uint256 _productId, uint256 _quantity) public payable {
-        require(_productId > 0 && _productId <= productCount, "Invalid product ID");
-        Product storage product = products[_productId];
-        require(product.stock >= _quantity, "Not enough stock available");
-        require(msg.value == product.price * _quantity, "Incorrect payment amount");
-
-        // Transfer the payment to the seller
-        payable(owner).transfer(msg.value);
-
-        // Update the stock of the product
-        product.stock -= _quantity;
-
-        emit ProductPurchased(_productId, product.name, _quantity, msg.value, msg.sender);
-    }
-
-    function getProductDetails(uint256 _productId) public view returns (string memory name, string memory description, uint256 stock, string memory expirationDate, uint256 price){
-        require(_productId > 0 && _productId <= productCount, "Invalid product ID");
-        Product storage product = products[_productId];
-        return (product.name, product.description, product.stock, product.expirationDate, product.price);
-    }
-
     function decrementarStock(uint256 _productId) public  {
     require(_productId > 0 && _productId <= productCount, "Invalid product ID");
     Product storage product = products[_productId];
@@ -111,4 +87,3 @@ contract Productos{
 }
 
 // ! CODIGO DE BLOQUE PARA DOCKER: 20266
-

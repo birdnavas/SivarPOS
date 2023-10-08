@@ -58,7 +58,7 @@ function App() {
 
         const contractproductosInstance = new web3Instance.eth.Contract(
           smartContractProductos,
-          smartContractProductos && "0xFD5aa8d451e3468298b736d6B2a922C3CD733Aa8"
+          smartContractProductos && "0xfaB4b2dCB7430E34F5e92522ecf7540985a982BF"
         );
         setContractproductos(contractproductosInstance);
 

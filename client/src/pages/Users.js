@@ -8,21 +8,23 @@ const Users = (props) => {
             <label for="nombre" class="block text-gray-700 font-bold mb-2">Nombre</label>
             <input
                 type="text"
-                id="nombre"
-                name="nombre"
+                id="title"
+                name="title"
                 class="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Escribe tu nombre" onChange={props.ManejarFormulario} value={props.formulario.title} require
+                placeholder="Escribe tu nombre" 
+                onChange={props.ManejarFormulario} 
+                value={props.formulario.title} 
+                require
 
-                
             />
             <div class="mb-4">
                 <label for="correo" class="block text-gray-700 font-bold mb-2">Cuenta</label>
                 <input
-                    type="email"
-                    id="correo"
-                    name="correo"
+                    type="text"
+                    id="description"
+                    name="description"
                     class="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300"
-                    placeholder="cuenta wallet" onChange={props.ManejarFormulario} value={props.formulario.description} required
+                    placeholder="Cuenta wallet" onChange={props.ManejarFormulario} value={props.formulario.description} required
                 />
                 </div>
 
@@ -30,11 +32,6 @@ const Users = (props) => {
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300">Enviar</button>
                 </div>
         </form>
-
-
-
-
-
 
         <table className='table-auto'>
             <thead>

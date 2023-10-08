@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from "react";
+import {GrAdd} from "react-icons/gr";
+import {FaEdit} from "react-icons/fa";
+import {VscSaveAs} from "react-icons/vsc";
+import {AiFillDelete} from "react-icons/ai";
+import {GiCancel} from "react-icons/gi";
+
 
 const Productos = (props) => {
   const estadoInicialProductos = {
@@ -225,7 +231,7 @@ const Productos = (props) => {
                 className="block bg-[#FFD658] rounded-[10px] p-4 text-xl font-sans font-medium"
                 type="submit"
               >
-                AÑADIR
+                <GrAdd />
               </button>
             </td>
           </tbody>
@@ -336,35 +342,35 @@ const Productos = (props) => {
                     item.price
                   )}
                 </td>
-                <td className="flex justify-center">
+                <td className="flex justify-center dark:text-black">
                   {editingProductId === item.id ? (
                     <>
                       <button
-                        className="mr-2 bg-[#4CAF50] rounded-[10px] p-2 text-lg"
+                        className="mr-2 bg-[#4CAF50] rounded-[10px] p-2 text-3xl"
                         onClick={onSaveEdit}
                       >
-                        Guardar
+                        <VscSaveAs />
                       </button>
                       <button
-                        className="bg-red-500 rounded-[10px] p-2 text-lg"
+                        className="mr-2 bg-red-500 rounded-[10px] p-2 text-3xl"
                         onClick={onCancelEdit}
                       >
-                        Cancelar
+                        <GiCancel />
                       </button>
                     </>
                   ) : (
                     <button
-                      className="mr-2 bg-[#FFD658] rounded-[10px] p-2 text-lg"
+                      className="mr-2 bg-[#FFD658] rounded-[10px] p-2 text-3xl"
                       onClick={() => onEdit(item.id)}
                     >
-                      Editar
+                      <FaEdit />
                     </button>
                   )}
                   <button
-                    className="bg-red-500 rounded-[10px] p-2 text-lg"
+                    className="mr-2 bg-red-500 rounded-[10px] p-2 text-3xl"
                     onClick={() => onDeleteProduct(item.id)}
                   >
-                    Eliminar
+                    <AiFillDelete />
                   </button>
                 </td>
               </tr>
