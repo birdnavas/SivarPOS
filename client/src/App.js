@@ -58,14 +58,14 @@ function App() {
 
         const contractproductosInstance = new web3Instance.eth.Contract(
           smartContractProductos,
-          smartContractProductos && "0x915640e3EC49f4833983Ea5e196e77B93bA8e489"
+          smartContractProductos && "0xFD5aa8d451e3468298b736d6B2a922C3CD733Aa8"
         );
         setContractproductos(contractproductosInstance);
 
 
         const contractusersInstance = new web3Instance.eth.Contract(
           smartContractUsers,
-          smartContractUsers && "0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F"
+          smartContractUsers && "0xE213BD7f3e7B3Ca7f3c73c4C67d594BD499c5e9f"
         );
         setContractUsers(contractusersInstance);
 

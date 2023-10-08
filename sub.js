@@ -1,6 +1,6 @@
 const axios = require('axios');
 let data = JSON.stringify({
-  "webhookUrl": "https://e1e0-190-150-164-1.ngrok.io/hook",
+  "webhookUrl": " https://f8a9-190-150-121-147.ngrok.io/hook",
   "webhookVersion": "v1",
   "secret": "ScKc2Phr37RzfESKGYPh6CnZqNxc9t",
   "enabled": true,

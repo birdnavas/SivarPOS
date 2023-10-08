@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import GetAccount from "../components/Lightning/GetAccount.js";
 import DisplayAccount from "../components/Lightning/DisplayAccount.js";
 import QRCard from "../components/Lightning/QRCard.js";
+import '../App.css';
 
 const Home = (props) => {
   const [ListarInformacion, setListarInformacion] = useState([]);
@@ -50,6 +51,7 @@ const Home = (props) => {
     amount: "1",
   });
   const [totalSum, setTotalSum] = useState(0);
+  //const [totalProds, setTotalProds] = useState(0);
 
   useEffect(() => {
     const cookieValue = Cookies.get("myList");
@@ -94,7 +96,9 @@ const Home = (props) => {
   useEffect(() => {
     // Calculate and update the total sum whenever myList changes
     const sum = myList.reduce((acc, row) => acc + row.price * row.amount, 0);
+    //const sum2 = myList.length;
     setTotalSum(sum);
+    //setTotalProds(sum2);
   }, [myList]);
 
   const handleAddButtonClick = (itemId) => {
@@ -131,6 +135,20 @@ const Home = (props) => {
     Cookies.set("myList", JSON.stringify(updatedList), { expires: 7 });
   };
 
+  const [receipt, setReceipt] = useState([]);
+  const [receipttotal, setReceipttotal] = useState(0);
+  const Copiarcookie = () => {
+    setReceipt(myList.concat());
+    setReceipttotal(totalSum.toFixed(2));
+  };
+  useEffect(() => {
+    Copiarcookie();
+  }, [props.invoiceAndQuote]);
+  useEffect(() => {
+    if (props.paidIndicator) {
+        deleteAllItems();
+    }
+}, [props.paidIndicator]);
   return (
     <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y">
       <table>
@@ -177,22 +195,78 @@ const Home = (props) => {
           ))}
         </tbody>
       </table>
+      Total: ${totalSum.toFixed(2)}
 
-      <button onClick={deleteAllItems}>Clear</button>
-      <p>Total: ${totalSum.toFixed(2)}</p>
+
 
       <GetAccount passUpUserInfo={props.acceptUserInfo} />
       {props.userInfo && (
         <DisplayAccount
           passUpInvoice={props.acceptInvoiceAndQuote}
           userInfo={props.userInfo}
-          totalSum={totalSum}
+          totalSum={0.10}
         />
       )}
       {props.invoiceAndQuote && (
         <QRCard invoiceAndQuote={props.invoiceAndQuote} />
       )}
-      {props.paidIndicator && <h1> Transaccion exitosa. </h1>}
+      {props.paidIndicator && <> <div id="invoice-POS">
+
+        <center id="top">
+          <div class="logo"></div>
+          <div class="info">
+            <h2>Sivar POS</h2>
+          </div>
+        </center>
+
+        <div id="mid">
+          <div class="info">
+            <p>
+              Col San Benito #759<br />
+              Tel: 22577777<br />
+            </p>
+          </div>
+        </div>
+
+        <div id="bot">
+
+          <div id="table">
+            <table>
+              <tr className="tabletitle">
+                <td className="item"><h2>Item</h2></td>
+                <td className="Hours"><h2>Qty</h2></td>
+                <td className="Rate"><h2>Precio</h2></td>
+              </tr>
+
+              {receipt.map((row) => (
+                <tr class="service">
+                  <td className="tableitem"><p className="itemtext">{row.product}</p></td>
+                  <td className="tableitem"><p className="itemtext">{row.amount}</p></td>
+                  <td className="tableitem"><p className="itemtext">${row.price}</p></td>
+                </tr>))}
+
+              <tr className="tabletitle">
+                <td></td>
+                <td className="Rate"><h2>IVA</h2></td>
+                <td className="payment"><h2></h2></td>
+              </tr>
+
+              <tr className="tabletitle">
+                <td></td>
+                <td className="Rate"><h2>Total</h2></td>
+                <td className="payment"><h2>${receipttotal}</h2></td>
+              </tr>
+
+            </table>
+          </div>
+
+          <div id="legalcopy">
+            <p className="legal"><strong>Gracias por su compra!</strong>
+              Esta factura es con fines ilustrativos, como referecia de lo que se almacena en factura electronica.</p>
+          </div>
+
+        </div>
+      </div> </>}
     </div>
   );
 };
