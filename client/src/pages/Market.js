@@ -3,8 +3,6 @@ import Cookies from "js-cookie";
 import BarraBusqueda from "./Searchbar";
 
 const Market = (props) => {
-  
-
   const [ListarInformacion, setListarInformacion] = useState([]);
   const ListarRegistros = async () => {
     if (props.contractproductos) {
@@ -82,34 +80,27 @@ const Market = (props) => {
   });
 
   return (
-    
-    <div className="dark:text-black flex justify-center p-4">
-      <div >
-       <BarraBusqueda />
-       </div>
-
-
-  {ListarInformacion.filter((item) => item.id > 0).map((item) => (
-    <form onSubmit={handleSubmit} className="bg-gray-200 p-4 rounded-md shadow-md m-2 mt-11">
-      <p className="text-center text-xl font-semibold">{item.name}</p>
-      <p className="text-center text-lg">{item.price}</p>
-      <button
-        onClick={() => handleAddButtonClick(item.id)}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-2"
-      >
-        Agregar +
-      </button>
-      
-    </form>
-  ))}
- 
-
- 
-</div>
-
-
-
-  ); 
+    <section>
+      <BarraBusqueda />
+      <div className="flex justify-center p-4 dark:text-black">
+        {ListarInformacion.filter((item) => item.id > 0).map((item) => (
+          <form
+            onSubmit={handleSubmit}
+            className="p-4 m-2 mt-5 bg-gray-200 rounded-md shadow-md"
+          >
+            <p className="text-xl font-semibold text-center">{item.name}</p>
+            <p className="text-lg text-center">{item.price}</p>
+            <button
+              onClick={() => handleAddButtonClick(item.id)}
+              className="px-4 py-2 mt-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+            >
+              Agregar +
+            </button>
+          </form>
+        ))}
+      </div>
+    </section>
+  );
 };
 
 export default Market;
