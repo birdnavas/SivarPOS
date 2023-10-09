@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-contract Productos{
+contract Productos {
 
     address public owner;
     uint256 public productCount;
@@ -12,78 +12,71 @@ contract Productos{
         string description;
         uint256 stock;
         string expirationDate;
-        uint256 price;
+        string price; // Changed to string
+        string url;
     }
 
     mapping(uint256 => Product) public products;
 
-    event ProductAdded(uint256 productId, string name, string description, uint256 stock, string expirationDate, uint256 price, address seller);
-    event ProductEdited(uint256 indexed productId, string newName, string newDescription, uint256 newStock, string newExpirationDate, uint256 newPrice);
-    event ProductDeleted(uint256 indexed productId, string name, string description, uint256 stock, string expirationDate, uint256 price);
-    event ProductPurchased(uint256 productId, string name, uint256 quantity, uint256 totalPrice, address buyer);
+    event ProductAdded(uint256 productId, string name, string description, uint256 stock, string expirationDate, string price, string url, address seller);
+    event ProductEdited(uint256 indexed productId, string newName, string newDescription, uint256 newStock, string newExpirationDate, string newPrice, string newUrl);
+    event ProductDeleted(uint256 indexed productId, string name, string description, uint256 stock, string expirationDate, string price, string url);
+    event StockDecremented(uint256 indexed productId, uint256 newStock);
 
     constructor() {
         owner = msg.sender;
         productCount = 0;
     }
 
-    // modifier onlyOwner() {
-    //     require(msg.sender == owner, "Only the owner can call this function");
-    //     _;
-    // }
-
-    function addProduct(string memory _name, string memory _description, uint256 _stock, string memory _expirationDate, uint256 _price) public {
+    function addProduct(string memory _name, string memory _description, uint256 _stock, string memory _expirationDate, string memory _price, string memory _url) public {
         require(bytes(_name).length > 0, "Product name cannot be empty");
         require(bytes(_description).length > 0, "Product description cannot be empty");
         require(_stock > 0, "Product stock must be greater than 0");
         require(bytes(_expirationDate).length > 0, "Product expiration date cannot be empty");
-        require(_price >= 0, "Product price cannot be negative"); // Updated validation
+        require(bytes(_price).length > 0, "Product price cannot be empty"); // Price is now a string
 
         productCount++;
-        products[productCount] = Product(productCount, _name, _description, _stock, _expirationDate, _price);
-        emit ProductAdded(productCount, _name, _description, _stock, _expirationDate, _price, msg.sender);
+        products[productCount] = Product(productCount, _name, _description, _stock, _expirationDate, _price, _url);
+        emit ProductAdded(productCount, _name, _description, _stock, _expirationDate, _price, _url, msg.sender);
     }
 
-    function editProduct(uint256 _productId, string memory _newName, string memory _newDescription, uint256 _newStock, string memory _newExpirationDate, uint256 _newPrice) public {
+    function editProduct(uint256 _productId, string memory _newName, string memory _newDescription, uint256 _newStock, string memory _newExpirationDate, string memory _newPrice, string memory _newUrl) public {
         require(_productId > 0 && _productId <= productCount, "Invalid product ID");
         Product storage product = products[_productId];
-        // Actualizar los detalles del producto
+
         product.name = _newName;
         product.description = _newDescription;
         product.stock = _newStock;
         product.expirationDate = _newExpirationDate;
         product.price = _newPrice;
+        product.url = _newUrl;
 
-        emit ProductEdited(_productId, _newName, _newDescription, _newStock, _newExpirationDate, _newPrice);
-}
+        emit ProductEdited(_productId, _newName, _newDescription, _newStock, _newExpirationDate, _newPrice, _newUrl);
+    }
 
-    function deleteProduct(uint256 _productId) public  {
+    function deleteProduct(uint256 _productId) public {
         require(_productId > 0 && _productId <= productCount, "Invalid product ID");
         Product storage product = products[_productId];
 
-        // Guarda los detalles del producto antes de eliminarlo
         string memory name = product.name;
         string memory description = product.description;
         uint256 stock = product.stock;
         string memory expirationDate = product.expirationDate;
-        uint256 price = product.price;
+        string memory price = product.price; // Price is now a string
+        string memory url = product.url;
 
-        // Elimina el producto
         delete products[_productId];
 
-        emit ProductDeleted(_productId, name, description, stock, expirationDate, price);
-}
+        emit ProductDeleted(_productId, name, description, stock, expirationDate, price, url);
+    }
 
-    function decrementarStock(uint256 _productId) public  {
-    require(_productId > 0 && _productId <= productCount, "Invalid product ID");
-    Product storage product = products[_productId];
-    require(product.stock > 0, "No hay stock disponible para este producto");
+    function decrementarStock(uint256 _productId) public {
+        require(_productId > 0 && _productId <= productCount, "Invalid product ID");
+        Product storage product = products[_productId];
+        require(product.stock > 0, "No hay stock disponible para este producto");
 
-    // Resta 1 al stock del producto
-    product.stock--;
+        product.stock--;
 
-    emit ProductEdited(_productId, product.name, product.description, product.stock, product.expirationDate, product.price);
+        emit StockDecremented(_productId, product.stock);
     }
 }
-
-// ! CODIGO DE BLOQUE PARA DOCKER: 20266

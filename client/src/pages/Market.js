@@ -127,6 +127,7 @@ const Market = (props) => {
           <div
             className="p-3 mt-5 w-1/4"
           >
+<<<<<<< HEAD
             <div className="bg-gray-200 p-3 rounded-md shadow-lg">
               <img src={item.url} className="w-full" />
               <p className="text-xl font-semibold text-center">{item.name}</p>
@@ -139,6 +140,18 @@ const Market = (props) => {
                   Agregar +
                 </button>
               </div>
+=======
+            <img src={item.url} className="w-40" />
+            <p className="text-xl font-semibold text-center">{item.name}</p>
+            <p className="text-lg text-center">${item.price}</p>
+            <div className="flex justify-center">
+              <button
+                onClick={() => handleAddButtonClick(item.id)}
+                className=" flex justify-center px-4 text-center py-2 mt-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+              >
+                Agregar +
+              </button>
+>>>>>>> 976a13495e82558c53d010c693aba0966e22e0c2
             </div>
           </div>
         ))}
