@@ -39,9 +39,9 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "price",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"indexed": false,
@@ -94,9 +94,9 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "price",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"indexed": false,
@@ -143,9 +143,9 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "newPrice",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"indexed": false,
@@ -199,9 +199,9 @@
 				"type": "string"
 			},
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "_price",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"internalType": "string",
@@ -268,9 +268,9 @@
 				"type": "string"
 			},
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "_newPrice",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"internalType": "string",
@@ -345,9 +345,9 @@
 				"type": "string"
 			},
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "price",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"internalType": "string",

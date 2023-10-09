@@ -164,7 +164,7 @@ const Home = (props) => {
           {myList.map((row) => (
             <tr className="text-center" key={row.id}>
               <td>{row.product}</td>
-              <td>{row.price}</td>
+              <td>${row.price}</td>
 
               <div className="flex justify-center items-center">
                 <button
@@ -204,7 +204,7 @@ const Home = (props) => {
         <DisplayAccount
           passUpInvoice={props.acceptInvoiceAndQuote}
           userInfo={props.userInfo}
-          totalSum={0.10}
+          totalSum={totalSum.toFixed(2)}
         />
       )}
       {props.invoiceAndQuote && (

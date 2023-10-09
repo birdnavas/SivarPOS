@@ -359,7 +359,7 @@ const Productos = (props) => {
                       }
                     />
                   ) : (
-                    item.price
+                   <>${item.price}</> 
                   )}
                 </td>
                 <td>

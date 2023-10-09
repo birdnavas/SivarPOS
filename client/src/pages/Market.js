@@ -91,7 +91,7 @@ const Market = (props) => {
           >
             <img src={item.url} className="w-40" />
             <p className="text-xl font-semibold text-center">{item.name}</p>
-            <p className="text-lg text-center">{item.price}</p>
+            <p className="text-lg text-center">${item.price}</p>
             <div className="flex justify-center">
               <button
                 onClick={() => handleAddButtonClick(item.id)}
