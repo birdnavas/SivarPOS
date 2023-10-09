@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import BarraBusqueda from "./Searchbar";
 
+
 const Market = (props) => {
+  const [allProducts, setAllProducts] = useState([]);
+  const [search, setsearch] = useState("");
   const [ListarInformacion, setListarInformacion] = useState([]);
+  
   const ListarRegistros = async () => {
     if (props.contractproductos) {
       try {
@@ -26,17 +30,36 @@ const Market = (props) => {
               description: infotarea.description,
               url: infotarea.url,
             };
-            //console.log(tarea);
             arrayTarea.push(tarea);
           }
         }
-        //console.log(arrayTarea);
+        console.log(arrayTarea, "1");
         setListarInformacion(arrayTarea);
+        setAllProducts(arrayTarea);
       } catch (error) {
         console.error("Error al actualizar valor:", error);
       }
     }
   };
+
+
+  const searcher = (e) => {
+    setsearch(e.target.value)
+    setListarInformacion(allProducts);
+    console.log(allProducts, "allProducts");
+
+    //Filtrar productos de un array de objetos por coincidencia de letras
+    const value = e.target.value.toLowerCase();
+    const filter = allProducts.filter((product) => {
+      return product.name.toLowerCase().includes(value);
+    });
+
+    console.log(filter,"filter")
+
+    setListarInformacion(filter);
+    
+  };
+
 
   useEffect(() => {
     ListarRegistros();
@@ -81,29 +104,46 @@ const Market = (props) => {
   });
 
   return (
-    <section>
-      <BarraBusqueda />
-      <div className="flex justify-center p-4 dark:text-black">
+    <div className="flex flex-wrap">
+
+      <div className="bg-opacity-300 rounded-xl flex justify-center items-center w-full">
+        <input
+          value={search}
+          onChange={searcher}
+          className="mx-auto rounded-md w-[50rem] focus:outline-none text-center p-2 bg-slate-100 focus:border-b-2 focus:transition"
+          type="search"
+          name="search"
+          placeholder="Buscar"
+
+        />
+        <button
+          type="submit"
+          className="absolute top-0 right-0 mr-4 mt-7"
+        ></button>
+      </div>
+    
+      <div className="dark:text-black w-full flex flex-wrap">
         {ListarInformacion.filter((item) => item.id > 0).map((item) => (
-          <form
-            onSubmit={handleSubmit}
-            className="p-4 m-2 mt-5 bg-gray-200 rounded-md shadow-md"
+          <div
+            className="p-3 mt-5 w-1/4"
           >
-            <img src={item.url} className="w-40" />
-            <p className="text-xl font-semibold text-center">{item.name}</p>
-            <p className="text-lg text-center">{item.price}</p>
-            <div className="flex justify-center">
-              <button
-                onClick={() => handleAddButtonClick(item.id)}
-                className=" flex justify-center px-4 text-center py-2 mt-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
-              >
-                Agregar +
-              </button>
+            <div className="bg-gray-200 p-3 rounded-md shadow-lg">
+              <img src={item.url} className="w-full" />
+              <p className="text-xl font-semibold text-center">{item.name}</p>
+              <p className="text-lg text-center">{item.price}</p>
+              <div className="flex justify-center">
+                <button
+                  onClick={() => handleAddButtonClick(item.id)}
+                  className=" flex justify-center px-4 text-center py-2 mt-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+                >
+                  Agregar +
+                </button>
+              </div>
             </div>
-          </form>
+          </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 

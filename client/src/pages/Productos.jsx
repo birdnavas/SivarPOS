@@ -4,9 +4,50 @@ import {FaEdit} from "react-icons/fa";
 import {VscSaveAs} from "react-icons/vsc";
 import {AiFillDelete} from "react-icons/ai";
 import {GiCancel} from "react-icons/gi";
+import BarraBusqueda from "./Searchbar";
 
 
 const Productos = (props) => {
+
+  const [users, Setusers] = useState([]);
+  const [search, setsearch] = useState("");
+
+  // funcion para obtener datos de una api
+  //const URL = "https://jsonplaceholder.typicode.com/users";
+
+  const showData = async () => {
+    const response = await fetch(URL);
+    const data = await response.json();
+    /*console.log(data)*/
+    Setusers(data);
+  };
+  // funcion de busqueda
+
+  useEffect(() => {
+    showData();
+  }, []);
+
+  // funcion buscador
+  const searcher = (e) => {
+    setsearch(e.target.value);
+    console.log(e.target.value);
+  };
+
+
+  
+  //metodo de filtrado
+  let resultado = [];
+  if (!search) {
+    resultado = users;
+  } else {
+    resultado = users.filter((dato) =>
+      dato.name.toLowerCase().includes(search.toLocaleLowerCase())
+    );
+  }
+
+
+
+
   const estadoInicialProductos = {
     id: "",
     name: "",
@@ -68,11 +109,11 @@ const Productos = (props) => {
 
         let arrayTarea = [];
 
-        for (let i = 0; i <= Counter; i++) {
+        for (let i = 0; i <= Counter; i++) { 
           const infotarea = await props.contractproductos.methods
             .products(i)
             .call();
-
+                
           if (infotarea) {
             const tarea = {
               id: infotarea.id,
@@ -85,7 +126,9 @@ const Productos = (props) => {
             };
             arrayTarea.push(tarea);
           }
+
         }
+        console.log(arrayTarea)
         setListarInformacion(arrayTarea);
       } catch (error) {
         console.error("Error al actualizar valor:", error);
@@ -163,7 +206,10 @@ const Productos = (props) => {
   }, [props.contractproductos]);
 
   return (
-    <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y">
+     <>
+      <BarraBusqueda ListarRegistros={ListarRegistros()} contractproductos={props.contractproductos} />
+
+      <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y">
       <form onSubmit={registrarInformacion}>
         <table className="min-w-full text-center text-sm font-light">
           <thead>
@@ -417,6 +463,12 @@ const Productos = (props) => {
         </tbody>
       </table>
     </div>
+     </>
+
+
+
+    
+   
   );
 };
 

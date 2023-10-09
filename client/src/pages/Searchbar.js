@@ -1,23 +1,9 @@
 import React, { useState, useEffect } from "react";
-const BarraBusqueda = () => {
+const BarraBusqueda = (props) => {
   // setear los hooks  usestate
   const [users, Setusers] = useState([]);
   const [search, setsearch] = useState("");
-
-  // funcion para obtener datos de una api
-  //const URL = "https://jsonplaceholder.typicode.com/users";
-
-  const showData = async () => {
-    const response = await fetch(URL);
-    const data = await response.json();
-    /*console.log(data)*/
-    Setusers(data);
-  };
-  // funcion de busqueda
-
-  useEffect(() => {
-    showData();
-  }, []);
+  const [ListarInformacion, setListarInformacion] = useState([]);
 
   // funcion buscador
   const searcher = (e) => {
@@ -25,16 +11,48 @@ const BarraBusqueda = () => {
     console.log(e.target.value);
   };
 
-  //metodo de filtrado
-  let resultado = [];
-  if (!search) {
-    resultado = users;
-  } else {
-    resultado = users.filter((dato) =>
-      dato.name.toLowerCase().includes(search.toLocaleLowerCase())
-    );
-  }
 
+
+  
+  const ListarRegistros = async () => {
+    if (props.contractproductos) {
+      try {
+        const Counter = await props.contractproductos.methods
+          .productCount()
+          .call();
+
+        let arrayTarea = [];
+
+        for (let i = 0; i <= Counter; i++) {
+          const infotarea = await props.contractproductos.methods
+            .products(i)
+            .call();
+
+          if (infotarea) {
+            const tarea = {
+              id: infotarea.id,
+              name: infotarea.name,
+              price: infotarea.price,
+              description: infotarea.description,
+              url: infotarea.url,
+            };
+            //console.log(tarea);
+            arrayTarea.push(tarea);
+          }
+        }
+        console.log(arrayTarea, "Holaaaaa");
+        setListarInformacion(arrayTarea);
+      } catch (error) {
+        console.error("Error al actualizar valor:", error);
+        }
+    }
+  };
+
+  useEffect(() => {
+    ListarRegistros();
+  }, [props.contractproductos]);
+ 
+ 
   return (
     <section>
       <div>
@@ -46,6 +64,7 @@ const BarraBusqueda = () => {
             type="search"
             name="search"
             placeholder="Buscar"
+
           />
           <button
             type="submit"
@@ -55,19 +74,35 @@ const BarraBusqueda = () => {
       </div>
       <div className="flex items-start justify-center">
         <tbody>
-          {resultado.map((user) => (
-            <tr key={user.id}>
-              <td class="px-[5rem] py-4 whitespace-nowrap border-b border-gray-300">
-                {user.name}
-              </td>
-              <td class="px-[5rem] py-4 whitespace-nowrap border-b border-gray-300">
-                {user.username}
-              </td>
-              <td class="px-[10rem] py-4 whitespace-nowrap border-b border-gray-300">
-                {user.username}
-              </td>
-            </tr>
-          ))}
+          {ListarInformacion.length === 0 ? (
+            <p>No se encontraron resultados.</p>
+          ) : (
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Precio</th>
+                  <th>Descripción</th>
+                  <th>URL</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ListarInformacion.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>Hola</td>
+                    <td>{item.name}</td>
+                    <td>{item.price}</td>
+                    <td>{item.description}</td>
+                    <td>{item.url}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+
+
         </tbody>
       </div>
     </section>
@@ -75,3 +110,20 @@ const BarraBusqueda = () => {
 };
 
 export default BarraBusqueda;
+
+
+
+// // funcion para obtener datos de una api
+// //const URL = "https://jsonplaceholder.typicode.com/users";
+
+// const showData = async () => {
+//   const response = await fetch(URL);
+//   const data = await response.json();
+//   /*console.log(data)*/
+//   Setusers(data);
+// };
+// // funcion de busqueda
+
+// useEffect(() => {
+//   showData();
+// }, []);
