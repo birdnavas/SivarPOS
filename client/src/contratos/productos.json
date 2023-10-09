@@ -45,6 +45,12 @@
 			},
 			{
 				"indexed": false,
+				"internalType": "string",
+				"name": "url",
+				"type": "string"
+			},
+			{
+				"indexed": false,
 				"internalType": "address",
 				"name": "seller",
 				"type": "address"
@@ -91,6 +97,12 @@
 				"internalType": "uint256",
 				"name": "price",
 				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "url",
+				"type": "string"
 			}
 		],
 		"name": "ProductDeleted",
@@ -134,6 +146,12 @@
 				"internalType": "uint256",
 				"name": "newPrice",
 				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "newUrl",
+				"type": "string"
 			}
 		],
 		"name": "ProductEdited",
@@ -143,37 +161,19 @@
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
+				"indexed": true,
 				"internalType": "uint256",
 				"name": "productId",
 				"type": "uint256"
 			},
 			{
 				"indexed": false,
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"indexed": false,
 				"internalType": "uint256",
-				"name": "quantity",
+				"name": "newStock",
 				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "totalPrice",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "buyer",
-				"type": "address"
 			}
 		],
-		"name": "ProductPurchased",
+		"name": "StockDecremented",
 		"type": "event"
 	},
 	{
@@ -202,6 +202,11 @@
 				"internalType": "uint256",
 				"name": "_price",
 				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_url",
+				"type": "string"
 			}
 		],
 		"name": "addProduct",
@@ -266,6 +271,11 @@
 				"internalType": "uint256",
 				"name": "_newPrice",
 				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_newUrl",
+				"type": "string"
 			}
 		],
 		"name": "editProduct",
@@ -338,6 +348,11 @@
 				"internalType": "uint256",
 				"name": "price",
 				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "url",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",

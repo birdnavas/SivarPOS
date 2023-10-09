@@ -28,6 +28,7 @@ const Productos = (props) => {
     stock: "",
     expirationDate: "",
     price: "",
+    url: "",
   });
 
   const registrarInformacion = async (e) => {
@@ -41,7 +42,8 @@ const Productos = (props) => {
           producto.description,
           producto.stock,
           producto.expirationDate,
-          producto.price
+          producto.price,
+          producto.url,
         )
         .send({ from: props.account });
       console.log(result);
@@ -79,6 +81,7 @@ const Productos = (props) => {
               description: infotarea.description,
               stock: infotarea.stock,
               expirationDate: infotarea.expirationDate,
+              url: infotarea.url,
             };
             arrayTarea.push(tarea);
           }
@@ -110,7 +113,8 @@ const Productos = (props) => {
       !editingProduct.description ||
       !editingProduct.stock ||
       !editingProduct.expirationDate ||
-      !editingProduct.price
+      !editingProduct.price ||
+      !editingProduct.url
     ) {
       console.error("Los detalles del producto son inválidos.");
       return;
@@ -124,7 +128,8 @@ const Productos = (props) => {
           editingProduct.description,
           editingProduct.stock,
           editingProduct.expirationDate,
-          editingProduct.price
+          editingProduct.price,
+          editingProduct.url,
         )
         .send({ from: props.account });
 
@@ -168,8 +173,10 @@ const Productos = (props) => {
               <th className="px-4 py-2 text-lg ">EXISTENCIAS</th>
               <th className="px-4 py-2 text-lg">CADUCIDAD</th>
               <th className="px-4 py-2 text-lg">PRECIO</th>
+              <th className="px-4 py-2 text-lg">IMAGEN URL</th>
             </tr>
           </thead>
+          
           <tbody className="dark:text-black">
             <td className="px-4 py-2">
               <input
@@ -225,6 +232,17 @@ const Productos = (props) => {
                 className="w-full p-2 border border-gray-300"
               />
             </td>
+            {/*  NUEVO INPUT URL */}
+            <td className="px-4 py-2">
+              <input
+                type="string"
+                id="url"
+                name="url"
+                onChange={ManejarFormulario}
+                value={producto.url}
+                className="w-full p-2 border border-gray-300"
+              />
+            </td>
 
             <td className="">
               <button
@@ -235,17 +253,19 @@ const Productos = (props) => {
               </button>
             </td>
           </tbody>
+        
         </table>
       </form>
 
-      <table>
+      <table className="min-w-full text-center text-sm font-light">
         <thead>
           <tr className="">
             <th className="px-4 py-2 text-lg">NOMBRE</th>
             <th className="px-4 py-2 text-lg ">DESCRIPCION</th>
             <th className="px-4 py-2 text-lg ">EXISTENCIAS</th>
             <th className="px-4 py-2 text-lg">CADUCIDAD</th>
-            <th className="py-2 text-lg">PRECIO</th>
+            <th className="px-4 py-2 text-lg">PRECIO</th>
+            <th className="px-4 py-2 text-lg">IMAGEN URL</th>
           </tr>
         </thead>
         <tbody className="dark:text-white">
@@ -340,6 +360,24 @@ const Productos = (props) => {
                     />
                   ) : (
                     item.price
+                  )}
+                </td>
+                <td>
+                  {editingProductId === item.id ? (
+                    <input
+                      className="w-full p-2 text-black border border-gray-300"
+                      type="text"
+                      name="url"
+                      value={editingProduct.url.slice(0,25)}
+                      onChange={(e) =>
+                        setEditingProduct({
+                          ...editingProduct,
+                          url: e.target.value,
+                        })
+                      }
+                    />
+                  ) : (
+                    item.url.slice(0,25)
                   )}
                 </td>
                 <td className="flex justify-center dark:text-black">
