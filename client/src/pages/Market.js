@@ -124,36 +124,22 @@ const Market = (props) => {
     
       <div className="dark:text-black w-full flex flex-wrap">
         {ListarInformacion.filter((item) => item.id > 0).map((item) => (
-          <div
-            className="p-3 mt-5 w-1/4"
-          >
-<<<<<<< HEAD
-            <div className="bg-gray-200 p-3 rounded-md shadow-lg">
-              <img src={item.url} className="w-full" />
-              <p className="text-xl font-semibold text-center">{item.name}</p>
-              <p className="text-lg text-center">{item.price}</p>
-              <div className="flex justify-center">
-                <button
-                  onClick={() => handleAddButtonClick(item.id)}
-                  className=" flex justify-center px-4 text-center py-2 mt-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
-                >
-                  Agregar +
-                </button>
-              </div>
-=======
-            <img src={item.url} className="w-40" />
-            <p className="text-xl font-semibold text-center">{item.name}</p>
-            <p className="text-lg text-center">${item.price}</p>
-            <div className="flex justify-center">
-              <button
-                onClick={() => handleAddButtonClick(item.id)}
-                className=" flex justify-center px-4 text-center py-2 mt-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
-              >
-                Agregar +
-              </button>
->>>>>>> 976a13495e82558c53d010c693aba0966e22e0c2
-            </div>
+          <form
+          onSubmit={handleSubmit}
+          className="p-4 m-2 mt-5 bg-gray-200 rounded-md shadow-md"
+        >
+          <img src={item.url} className="w-40" />
+          <p className="text-xl font-semibold text-center">{item.name}</p>
+          <p className="text-lg text-center">${item.price}</p>
+          <div className="flex justify-center">
+            <button
+              onClick={() => handleAddButtonClick(item.id)}
+              className=" flex justify-center px-4 text-center py-2 mt-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+            >
+              Agregar +
+            </button>
           </div>
+        </form>
         ))}
       </div>
     </div>

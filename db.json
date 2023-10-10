@@ -1,0 +1,52 @@
+{
+  "users": [
+    {
+      "fecha": "10/10/2023, 4:31:50",
+      "amount": 1,
+      "total": 195,
+      "myList": [
+        {
+          "id": 1,
+          "product": "Mango",
+          "price": "65",
+          "amount": 3
+        }
+      ],
+      "id": 11
+    },
+    {
+      "fecha": "10/10/2023, 5:58:25",
+      "amount": 2,
+      "total": 0.12,
+      "myList": [
+        {
+          "id": 1,
+          "product": "10 Centavos",
+          "price": "0.10",
+          "amount": 1
+        },
+        {
+          "id": 2,
+          "product": "Centavo",
+          "price": "0.01",
+          "amount": 2
+        }
+      ],
+      "id": 12
+    },
+    {
+      "fecha": "10/10/2023, 6:03:13",
+      "amount": 1,
+      "total": "0.12",
+      "myList": [
+        {
+          "id": 1,
+          "product": "Centavo",
+          "price": "0.01",
+          "amount": 12
+        }
+      ],
+      "id": 13
+    }
+  ]
+}

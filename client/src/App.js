@@ -19,6 +19,8 @@ import Control from './pages/Control.js'
 import Users from './pages/Users.js';
 import Tienda from './pages/Market.js';
 
+import Read from './pages/Read.js';
+
 function App() {
 
 
@@ -235,6 +237,7 @@ function App() {
               formulario={formulario}
               ListarInformacion={ListarInformacion}
               cambioEstadoTarea={cambioEstadoTarea} />} />
+              <Route path='/read/:id' element={<Read />}></Route>
           </Routes>
         </Layout>
       </BrowserRouter>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import axios from 'axios';
 import GetAccount from "../components/Lightning/GetAccount.js";
 import DisplayAccount from "../components/Lightning/DisplayAccount.js";
 import QRCard from "../components/Lightning/QRCard.js";
@@ -51,6 +52,7 @@ const Home = (props) => {
     amount: "1",
   });
   const [totalSum, setTotalSum] = useState(0);
+  const [totalProds, setTotalProds] = useState(0);
   //const [totalProds, setTotalProds] = useState(0);
 
   useEffect(() => {
@@ -98,6 +100,7 @@ const Home = (props) => {
     const sum = myList.reduce((acc, row) => acc + row.price * row.amount, 0);
     //const sum2 = myList.length;
     setTotalSum(sum);
+    setTotalProds(myList.length);
     //setTotalProds(sum2);
   }, [myList]);
 
@@ -146,9 +149,19 @@ const Home = (props) => {
   }, [props.invoiceAndQuote]);
   useEffect(() => {
     if (props.paidIndicator) {
-        deleteAllItems();
+      postfactura();
+      deleteAllItems();
     }
-}, [props.paidIndicator]);
+  }, [props.paidIndicator]);
+
+  const postfactura = (event) => {
+
+    axios.post('http://localhost:3030/users', { fecha: new Date().toLocaleString(), amount: totalProds, total: totalSum.toFixed(2), myList })
+      .then(res => {
+
+      })
+  }
+
   return (
     <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y">
       <table>
