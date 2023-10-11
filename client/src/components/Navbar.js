@@ -1,3 +1,4 @@
+import StartToastifyInstance from "toastify-js";
 import Toggle from "./ThemeToggle";
 
 import React, { useState, useEffect } from "react";
@@ -19,8 +20,15 @@ const Navbar = (props) => {
     document.body.removeChild(input);
 
     // Muestra una notificación
-    alert(`ELEMENTO COPIADO EN EL PORTAPAPELES: ${text}`);
-  };
+    StartToastifyInstance({
+
+      text: "Dirección copiada",
+
+      position: "center",
+      
+      duration: 3000
+      
+    }).showToast();  };
 
   return (
     <nav className="bg-white border-gray-200 mx-2 px-2 py-2.5 rounded dark:bg-gray-800">

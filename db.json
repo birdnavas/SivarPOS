@@ -47,6 +47,104 @@
         }
       ],
       "id": 13
+    },
+    {
+      "fecha": "11/10/2023, 7:26:21",
+      "amount": 1,
+      "total": "0.10",
+      "myList": [
+        {
+          "id": 1,
+          "product": "10 Centavos",
+          "price": "0.10",
+          "amount": 1
+        }
+      ],
+      "id": 14
+    },
+    {
+      "fecha": "11/10/2023, 7:51:13",
+      "amount": 0,
+      "total": "0.00",
+      "myList": [],
+      "id": 15
+    },
+    {
+      "fecha": "11/10/2023, 9:14:26",
+      "amount": 1,
+      "total": "0.10",
+      "myList": [
+        {
+          "id": 2,
+          "product": "10 Centavos",
+          "price": "0.10",
+          "amount": 1
+        }
+      ],
+      "id": 16
+    },
+    {
+      "fecha": "11/10/2023, 9:15:23",
+      "amount": 0,
+      "total": "0.00",
+      "myList": [],
+      "id": 17
+    },
+    {
+      "fecha": "11/10/2023, 9:18:30",
+      "amount": 0,
+      "total": "0.00",
+      "myList": [],
+      "id": 18
+    },
+    {
+      "fecha": "11/10/2023, 9:42:37",
+      "amount": 1,
+      "total": "0.10",
+      "myList": [
+        {
+          "id": 1,
+          "product": "10 Centavos",
+          "price": "0.10",
+          "amount": 1
+        }
+      ],
+      "id": 19
+    },
+    {
+      "fecha": "11/10/2023, 9:43:27",
+      "amount": 0,
+      "total": "0.00",
+      "myList": [],
+      "id": 20
+    },
+    {
+      "fecha": "11/10/2023, 9:44:03",
+      "amount": 1,
+      "total": "0.10",
+      "myList": [
+        {
+          "id": 1,
+          "product": "10 Centavos",
+          "price": "0.10",
+          "amount": 1
+        }
+      ],
+      "id": 21
+    },
+    {
+      "fecha": "11/10/2023, 9:48:47",
+      "amount": 0,
+      "total": "0.00",
+      "myList": [],
+      "id": 22
+    },
+    {
+      "fecha": "11/10/2023, 9:57:10",
+      "amount": 0,
+      "total": "0.00",
+      "myList": [],
+      "id": 23
     }
   ]
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import BarraBusqueda from "./Searchbar";
+import StartToastifyInstance from "toastify-js";
 
 
 const Market = (props) => {
@@ -80,6 +81,15 @@ const Market = (props) => {
         setFormData({ product: item.name, price: item.price, amount: "1" })
       );
     }
+    StartToastifyInstance({
+
+      text: "Agregado al carrito",
+
+      position: "center",
+      
+      duration: 3000
+      
+    }).showToast();
   };
 
   const addItem = () => {

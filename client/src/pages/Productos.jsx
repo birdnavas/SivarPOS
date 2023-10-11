@@ -287,7 +287,7 @@ const Productos = (props) => {
                       }
                     />
                   ) : (
-                    item.name
+                    <b>{item.name}</b>
                   )}
                 </td>
                 <td>
@@ -368,7 +368,7 @@ const Productos = (props) => {
                       className="w-full p-2 text-black border border-gray-300"
                       type="text"
                       name="url"
-                      value={editingProduct.url.slice(0,25)}
+                      value={editingProduct.url}
                       onChange={(e) =>
                         setEditingProduct({
                           ...editingProduct,
