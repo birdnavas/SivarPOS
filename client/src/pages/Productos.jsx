@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {GrAdd} from "react-icons/gr";
-import {FaEdit} from "react-icons/fa";
-import {VscSaveAs} from "react-icons/vsc";
-import {AiFillDelete} from "react-icons/ai";
-import {GiCancel} from "react-icons/gi";
-
+import { GrAdd } from "react-icons/gr";
+import { FaEdit } from "react-icons/fa";
+import { VscSaveAs } from "react-icons/vsc";
+import { AiFillDelete } from "react-icons/ai";
+import { GiCancel } from "react-icons/gi";
+import DataTable from "react-data-table-component";
 
 const Productos = (props) => {
   const estadoInicialProductos = {
@@ -14,11 +14,13 @@ const Productos = (props) => {
     stock: "",
     expirationDate: "",
     price: "",
+    url: "",
   };
 
   const [producto, setProducto] = useState(estadoInicialProductos);
   const [ListarInformacion, setListarInformacion] = useState([]);
   const [editingProductId, setEditingProductId] = useState(null);
+  const [data, setData] = useState([]);
 
   // Estado para los campos de edición de productos individuales
   const [editingProduct, setEditingProduct] = useState({
@@ -43,7 +45,7 @@ const Productos = (props) => {
           producto.stock,
           producto.expirationDate,
           producto.price,
-          producto.url,
+          producto.url
         )
         .send({ from: props.account });
       console.log(result);
@@ -72,7 +74,6 @@ const Productos = (props) => {
           const infotarea = await props.contractproductos.methods
             .products(i)
             .call();
-
           if (infotarea) {
             const tarea = {
               id: infotarea.id,
@@ -83,10 +84,14 @@ const Productos = (props) => {
               expirationDate: infotarea.expirationDate,
               url: infotarea.url,
             };
-            arrayTarea.push(tarea);
+            if(tarea.id !== "0"){
+              arrayTarea.push(tarea);
+            }
           }
         }
         setListarInformacion(arrayTarea);
+        setData(arrayTarea);
+        console.log(arrayTarea);
       } catch (error) {
         console.error("Error al actualizar valor:", error);
       }
@@ -129,7 +134,7 @@ const Productos = (props) => {
           editingProduct.stock,
           editingProduct.expirationDate,
           editingProduct.price,
-          editingProduct.url,
+          editingProduct.url
         )
         .send({ from: props.account });
 
@@ -162,373 +167,302 @@ const Productos = (props) => {
     ListarRegistros();
   }, [props.contractproductos]);
 
+  const columns = [
+    {
+      name: "NOMBRE",
+      width: "200px",
+      selector: (row) => <div>
+        {editingProductId === row.id ? (
+          <input
+            className="w-full text-lg p-2 text-black border border-gray-300"
+            type="text"
+            name="name"
+            value={editingProduct.name}
+            onChange={(e) =>
+              setEditingProduct({
+                ...editingProduct,
+                name: e.target.value,
+              })
+            }
+          />
+        ) : (
+          <b>{row.name}</b>
+        )}
+      </div>
+    },
+    {
+      name: "DESCRIPCION",
+      width: "200px",
+      selector: (row) => <div>
+        {editingProductId === row.id ? (
+          <input
+            className="w-full text-lg p-2 text-black border border-gray-300"
+            type="text"
+            name="description"
+            value={editingProduct.description}
+            onChange={(e) =>
+              setEditingProduct({
+                ...editingProduct,
+                description: e.target.value,
+              })
+            }
+          />
+        ) : (
+          row.description
+        )}
+      </div>,
+    },
+    {
+      name: "EXISTENCIAS",
+      width: "200px",
+      selector: (row) => <div>
+        {editingProductId === row.id ? (
+          <input
+            className="w-full text-lg p-2 text-black border border-gray-300"
+            type="text"
+            name="stock"
+            value={editingProduct.stock}
+            onChange={(e) =>
+              setEditingProduct({
+                ...editingProduct,
+                stock: e.target.value,
+              })
+            }
+          />
+        ) : (
+          row.stock
+        )}
+      </div>,
+    },
+    {
+      name: "CADUCIDAD",
+      width: "200px",
+      selector: (row) => <div>
+        {editingProductId === row.id ? (
+          <input
+            className="w-full text-lg p-2 text-black border border-gray-300"
+            type="date"
+            name="expirationDate"
+            value={editingProduct.expirationDate}
+            onChange={(e) =>
+              setEditingProduct({
+                ...editingProduct,
+                expirationDate: e.target.value,
+              })
+            }
+          />
+        ) : (
+          row.expirationDate
+        )}
+      </div>,
+    },
+    {
+      name: "PRECIO",
+      width: "200px",
+      selector: (row) => <div>
+        {editingProductId === row.id ? (
+          <input
+            className="w-full text-lg p-2 text-black border border-gray-300"
+            type="text"
+            name="price"
+            value={editingProduct.price}
+            onChange={(e) =>
+              setEditingProduct({
+                ...editingProduct,
+                price: e.target.value,
+              })
+            }
+          />
+        ) : (
+          <>${row.price}</>
+        )}
+      </div>,
+    },
+    {
+      name: "IMAGEN URL",
+      width: "200px",
+      selector: (row) => <div>
+        {editingProductId === row.id ? (
+          <input
+            className="w-full text-lg p-2 text-black border border-gray-300"
+            type="text"
+            name="url"
+            value={editingProduct.url}
+            onChange={(e) =>
+              setEditingProduct({
+                ...editingProduct,
+                url: e.target.value,
+              })
+            }
+          />
+        ) : (
+          row.url.slice(0, 25)
+        )}
+      </div>,
+    },
+    {
+      name: "EDITAR",
+      width: "200px",
+      selector: (row) => <div className="p-4">
+        {editingProductId === row.id ? (  
+        <>
+          <button
+            className="mr-2 bg-[#4CAF50] rounded-[10px] p-2 text-4xl"
+            onClick={onSaveEdit}
+          >
+            <VscSaveAs />
+          </button>
+          <button
+            className="mr-2 bg-red-500 rounded-[10px] p-2 text-4xl"
+            onClick={onCancelEdit}
+          >
+            <GiCancel />
+          </button>
+        </>
+      ) : (
+        <button
+          className="mr-2 bg-[#FFD658] rounded-[10px] p-2 text-4xl"
+          onClick={() => onEdit(row.id)}
+        >
+          <FaEdit />
+        </button>
+      )}
+      </div>
+    },
+    {
+      name: "ELIMINAR",
+      width: "200px",
+      selector: (row) => <div className="p-3">
+        <button
+            className="mr-2 bg-red-500 rounded-[10px] p-2 text-4xl"
+            onClick={() => onDeleteProduct(row.id)}
+          >
+            <AiFillDelete />
+          </button>
+      </div>
+    },
+  ];
+  const columnsRegistrar = [
+    {
+      name: "NOMBRE",
+      width: "200px",
+      selector: (row) => <div className="text-black"><b>{row.name}</b></div>
+    },
+    {
+      name: "DESCRIPCION",
+      width: "200px",
+      selector: (row) => <div className="text-black"><b>{row.description}</b></div>
+    },
+    {
+      name: "EXISTENCIAS",
+      width: "200px",
+      selector: (row) => <div className="text-black"><b>{row.stock}</b></div>
+    },
+    {
+      name: "CADUCIDAD",
+      width: "200px",
+      selector: (row) => <div className="text-black"><b>{row.expirationDate}</b></div>
+    },
+    {
+      name: "PRECIO",
+      width: "200px",
+      selector: (row) => <div className="text-black"><b>{row.price}</b></div>
+    },
+    {
+      name: "IMAGEN URL",
+      width: "200px",
+      selector: (row) => <div className="text-black"><b>{row.url}</b></div>
+    },
+    {
+      name: "AGREGAR",
+      width: "200px",
+      selector: (row) => <div className="text-black"><b>{row.addProduct}</b></div>
+    },
+  ];
+
+  const dataRegistrar = [
+    {
+        name: <div>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            onChange={ManejarFormulario}
+            value={producto.name}
+            className="w-full text-lg p-2 border border-gray-300"
+          />
+        </div>,
+        description: <div>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            onChange={ManejarFormulario}
+            value={producto.description}
+            className="w-full text-lg p-2 border border-gray-300"
+          />
+        </div>,
+        stock: <div>
+          <input
+            type="number"
+            id="stock"
+            name="stock"
+            onChange={ManejarFormulario}
+            value={producto.stock}
+            className="w-full text-lg p-2 border border-gray-300"
+          />
+        </div>,
+        expirationDate: <div>
+          <input
+            type="date"
+            id="expirationDate"
+            name="expirationDate"
+            onChange={ManejarFormulario}
+            value={producto.expirationDate}
+            className="w-full text-lg p-2 border border-gray-300"
+          />
+        </div>,
+        price: <div>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            onChange={ManejarFormulario}
+            value={producto.price}
+            className="w-full text-lg p-2 border border-gray-300"
+          />
+        </div>,
+        url: <div>
+          <input
+            type="string"
+            id="url"
+            name="url"
+            onChange={ManejarFormulario}
+            value={producto.url}
+            className="w-full text-lg p-2 border border-gray-300"
+          />
+        </div>,
+        addProduct: <div className="p-3">
+          <button
+            className="block bg-[#FFD658] rounded-[10px] p-4 text-xl font-sans font-medium"
+            type="submit"
+          >
+            <GrAdd />
+          </button>
+        </div>,
+    },
+]
+
   return (
     <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y">
       <form onSubmit={registrarInformacion}>
-        <table className="min-w-full text-center text-sm font-light">
-          <thead>
-            <tr className="bg-[#3853DA] text-white">
-              <th className="px-4 py-2 text-lg">NOMBRE</th>
-              <th className="px-4 py-2 text-lg ">DESCRIPCION</th>
-              <th className="px-4 py-2 text-lg ">EXISTENCIAS</th>
-              <th className="px-4 py-2 text-lg">CADUCIDAD</th>
-              <th className="px-4 py-2 text-lg">PRECIO</th>
-              <th className="px-4 py-2 text-lg">IMAGEN URL</th>
-            </tr>
-          </thead>
-          
-          <tbody className="dark:text-black">
-            <td className="px-4 py-2">
-              <input
-                type="text"
-                id="name"
-                name="name"
-                onChange={ManejarFormulario}
-                value={producto.name}
-                className="w-full p-2 border border-gray-300"
-              />
-            </td>
-
-            <td className="px-4 py-2">
-              <input
-                type="text"
-                id="description"
-                name="description"
-                onChange={ManejarFormulario}
-                value={producto.description}
-                className="w-full p-2 border border-gray-300"
-              />
-            </td>
-
-            <td className="px-4 py-2">
-              <input
-                type="number"
-                id="stock"
-                name="stock"
-                onChange={ManejarFormulario}
-                value={producto.stock}
-                className="w-full p-2 border border-gray-300"
-              />
-            </td>
-
-            <td className="px-4 py-2">
-              <input
-                type="date"
-                id="expirationDate"
-                name="expirationDate"
-                onChange={ManejarFormulario}
-                value={producto.expirationDate}
-                className="w-full p-2 border border-gray-300"
-              />
-            </td>
-
-            <td className="px-4 py-2">
-              <input
-                type="number"
-                id="price"
-                name="price"
-                onChange={ManejarFormulario}
-                value={producto.price}
-                className="w-full p-2 border border-gray-300"
-              />
-            </td>
-            {/*  NUEVO INPUT URL */}
-            <td className="px-4 py-2">
-              <input
-                type="string"
-                id="url"
-                name="url"
-                onChange={ManejarFormulario}
-                value={producto.url}
-                className="w-full p-2 border border-gray-300"
-              />
-            </td>
-
-            <td className="">
-              <button
-                className="block bg-[#FFD658] rounded-[10px] p-4 text-xl font-sans font-medium"
-                type="submit"
-              >
-                <GrAdd />
-              </button>
-            </td>
-          </tbody>
-        
-        </table>
+        <DataTable columns={columnsRegistrar} data={dataRegistrar} responsive />
       </form>
 
-      <table className="min-w-full text-center text-sm font-light">
-        <thead>
-          <tr className="">
-            <th className="px-4 py-2 text-lg">NOMBRE</th>
-            <th className="px-4 py-2 text-lg ">DESCRIPCION</th>
-            <th className="px-4 py-2 text-lg ">EXISTENCIAS</th>
-            <th className="px-4 py-2 text-lg">CADUCIDAD</th>
-            <th className="px-4 py-2 text-lg">PRECIO</th>
-            <th className="px-4 py-2 text-lg">IMAGEN URL</th>
-          </tr>
-        </thead>
-        <tbody className="dark:text-white">
-          {ListarInformacion.filter((item) => item.id > 0).map(
-            (item, index) => (
-              <tr className="text-center px-4 py-2 text-lg" key={index}>
-                <td>
-                  {editingProductId === item.id ? (
-                    <input
-                      className="w-full p-2 text-black border border-gray-300"
-                      type="text"
-                      name="name"
-                      value={editingProduct.name}
-                      onChange={(e) =>
-                        setEditingProduct({
-                          ...editingProduct,
-                          name: e.target.value,
-                        })
-                      }
-                    />
-                  ) : (
-                    <b>{item.name}</b>
-                  )}
-                </td>
-                <td>
-                  {editingProductId === item.id ? (
-                    <input
-                      className="w-full p-2 text-black border border-gray-300"
-                      type="text"
-                      name="description"
-                      value={editingProduct.description}
-                      onChange={(e) =>
-                        setEditingProduct({
-                          ...editingProduct,
-                          description: e.target.value,
-                        })
-                      }
-                    />
-                  ) : (
-                    item.description
-                  )}
-                </td>
-                <td>
-                  {editingProductId === item.id ? (
-                    <input
-                      className="w-full p-2 text-black border border-gray-300"
-                      type="number"
-                      name="stock"
-                      value={editingProduct.stock}
-                      onChange={(e) =>
-                        setEditingProduct({
-                          ...editingProduct,
-                          stock: e.target.value,
-                        })
-                      }
-                    />
-                  ) : (
-                    item.stock
-                  )}
-                </td>
-                <td>
-                  {editingProductId === item.id ? (
-                    <input
-                      className="w-full p-2 text-black border border-gray-300"
-                      type="date"
-                      name="expirationDate"
-                      value={editingProduct.expirationDate}
-                      onChange={(e) =>
-                        setEditingProduct({
-                          ...editingProduct,
-                          expirationDate: e.target.value,
-                        })
-                      }
-                    />
-                  ) : (
-                    item.expirationDate
-                  )}
-                </td>
-                <td>
-                  {editingProductId === item.id ? (
-                    <input
-                      className="w-full p-2 text-black border border-gray-300"
-                      type="text"
-                      name="price"
-                      value={editingProduct.price}
-                      onChange={(e) =>
-                        setEditingProduct({
-                          ...editingProduct,
-                          price: e.target.value,
-                        })
-                      }
-                    />
-                  ) : (
-                   <>${item.price}</> 
-                  )}
-                </td>
-                <td>
-                  {editingProductId === item.id ? (
-                    <input
-                      className="w-full p-2 text-black border border-gray-300"
-                      type="text"
-                      name="url"
-                      value={editingProduct.url}
-                      onChange={(e) =>
-                        setEditingProduct({
-                          ...editingProduct,
-                          url: e.target.value,
-                        })
-                      }
-                    />
-                  ) : (
-                    item.url.slice(0,25)
-                  )}
-                </td>
-                <td className="flex justify-center dark:text-black">
-                  {editingProductId === item.id ? (
-                    <>
-                      <button
-                        className="mr-2 bg-[#4CAF50] rounded-[10px] p-2 text-3xl"
-                        onClick={onSaveEdit}
-                      >
-                        <VscSaveAs />
-                      </button>
-                      <button
-                        className="mr-2 bg-red-500 rounded-[10px] p-2 text-3xl"
-                        onClick={onCancelEdit}
-                      >
-                        <GiCancel />
-                      </button>
-                    </>
-                  ) : (
-                    <button
-                      className="mr-2 bg-[#FFD658] rounded-[10px] p-2 text-3xl"
-                      onClick={() => onEdit(item.id)}
-                    >
-                      <FaEdit />
-                    </button>
-                  )}
-                  <button
-                    className="mr-2 bg-red-500 rounded-[10px] p-2 text-3xl"
-                    onClick={() => onDeleteProduct(item.id)}
-                  >
-                    <AiFillDelete />
-                  </button>
-                </td>
-              </tr>
-            )
-          )}
-        </tbody>
-      </table>
+      
+      <DataTable columns={columns} data={data} pagination responsive />
     </div>
   );
 };
 
 export default Productos;
-
-{
-  /* <form onSubmit={registrarInformacion}>
-        <table className="min-w-full text-center text-sm font-light">
-          <thead>
-            <tr className="bg-[#3853DA] text-white">
-              <th className="px-4 py-2 text-lg">NOMBRE</th>
-              <th className="px-4 py-2 text-lg ">DESCRIPCION</th>
-              <th className="px-4 py-2 text-lg ">EXISTENCIAS</th>
-              <th className="px-4 py-2 text-lg">CADUCIDAD</th>
-              <th className="px-4 py-2 text-lg">PRECIO</th>
-            </tr>
-          </thead>
-          <tbody className="dark:text-black">
-            <td className="px-4 py-2">
-              <input
-                type="text"
-                id="name"
-                name="name"
-                onChange={ManejarFormulario}
-                value={producto.name}
-                className="w-full p-2 border border-gray-300"
-              />
-            </td>
-
-            <td className="px-4 py-2">
-              <input
-                type="text"
-                id="description"
-                name="description"
-                onChange={ManejarFormulario}
-                value={producto.description}
-                className="w-full p-2 border border-gray-300"
-              />
-            </td>
-
-            <td className="px-4 py-2">
-              <input
-                type="number"
-                id="stock"
-                name="stock"
-                onChange={ManejarFormulario}
-                value={producto.stock}
-                className="w-full p-2 border border-gray-300"
-              />
-            </td>
-
-            <td className="px-4 py-2">
-              <input
-                type="date"
-                id="expirationDate"
-                name="expirationDate"
-                onChange={ManejarFormulario}
-                value={producto.expirationDate}
-                className="w-full p-2 border border-gray-300"
-              />
-            </td>
-
-            <td className="px-4 py-2">
-              <input
-                type="number"
-                id="price"
-                name="price"
-                onChange={ManejarFormulario}
-                value={producto.price}
-                className="w-full p-2 border border-gray-300"
-              />
-            </td>
-
-            <td className="">
-              <button
-                className="block bg-[#FFD658] rounded-[10px] p-4 text-xl font-sans font-medium"
-                type="submit"
-              >
-                AÑADIR
-              </button>
-            </td>
-          </tbody>
-        </table>
-      </form> */
-}
-
-{
-  /* <tbody className="dark:text-white">
-          {ListarInformacion.filter((item) => item.id > 0).map(
-            (item, index) => (
-              <tr className="text-center px-4 py-2 text-lg" key={index}>
-                <td>{item.name}</td>
-                <td>{item.description}</td>
-                <td>{item.stock}</td>
-                <td>{item.expirationDate}</td>
-                <td>{item.price}</td>
-                <td className="flex justify-center">
-                  <button
-                    className="mr-2 bg-[#FFD658] rounded-[10px] p-2 text-lg"
-                    onClick={() => onEdit(item)} // Pasa el objeto 'item' como argumento
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="bg-red-500 rounded-[10px] p-2 text-lg"
-                    onClick={() => onDeleteProduct(item.id)}
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-            )
-          )}
-        </tbody> */
-}

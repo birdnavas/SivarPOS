@@ -7,3 +7,18 @@
 
 @tailwind components;
 @tailwind utilities;
+
+.rdt_Table .rdt_TableHeadRow{
+  background-color: #3853DA;
+  color: white;
+  @apply text-lg 
+
+}
+
+.rdt_Table .rdt_TableBody .rdt_TableRow{
+  @apply text-lg dark:text-white dark:bg-black
+}
+
+.rdt_Pagination{
+  @apply dark:bg-black dark:text-white
+}
