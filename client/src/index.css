@@ -10,7 +10,6 @@
 
 .rdt_Table .rdt_TableHeadRow{
   @apply text-lg bg-[#3853DA] text-white w-full
-
 }
 
 .rdt_Table .rdt_TableBody .rdt_TableRow{
@@ -25,5 +24,5 @@
   @apply  dark:stroke-white stroke-black
 }
 .bMuwEY{
-  @apply pt-8
+  /* @apply pt-8 */
 }

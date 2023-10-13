@@ -39,7 +39,7 @@ const Productos = (props) => {
     console.log(producto);
 
     try {
-      const result = await props.contractproductos.methods
+      const result = await props.contractProductos.methods
         .addProduct(
           producto.name,
           producto.description,
@@ -63,16 +63,16 @@ const Productos = (props) => {
   };
 
   const ListarRegistros = async () => {
-    if (props.contractproductos) {
+    if (props.contractProductos) {
       try {
-        const Counter = await props.contractproductos.methods
+        const Counter = await props.contractProductos.methods
           .productCount()
           .call();
 
         let arrayTarea = [];
 
         for (let i = 0; i <= Counter; i++) {
-          const infotarea = await props.contractproductos.methods
+          const infotarea = await props.contractProductos.methods
             .products(i)
             .call();
           if (infotarea) {
@@ -127,7 +127,7 @@ const Productos = (props) => {
     }
 
     try {
-      const result = await props.contractproductos.methods
+      const result = await props.contractProductos.methods
         .editProduct(
           editingProduct.id,
           editingProduct.name,
@@ -153,7 +153,7 @@ const Productos = (props) => {
 
   const onDeleteProduct = async (productId) => {
     try {
-      const result = await props.contractproductos.methods
+      const result = await props.contractProductos.methods
         .deleteProduct(productId)
         .send({ from: props.account });
 
@@ -166,9 +166,9 @@ const Productos = (props) => {
 
   useEffect(() => {
     ListarRegistros();
-  }, [props.contractproductos]);
+  }, [props.contractProductos]);
 
-  const columns = [
+  const columnListarProductos = [
     {
       name: "NOMBRE",
       width: "210px",
@@ -357,7 +357,7 @@ const Productos = (props) => {
       ),
     },
   ];
-  const columnsRegistrar = [
+  const columnsRegistrarProductos = [
     {
       name: "NOMBRE",
       width: "210px",
@@ -395,7 +395,7 @@ const Productos = (props) => {
     },
   ];
 
-  const dataRegistrar = [
+  const dataRegistrarProductos = [
     {
         name: <div>
           <input
@@ -471,11 +471,11 @@ const Productos = (props) => {
   return (
     <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y">
       <form onSubmit={registrarInformacion}>
-        <DataTable columns={columnsRegistrar} data={dataRegistrar} responsive />
+        <DataTable columns={columnsRegistrarProductos} data={dataRegistrarProductos} responsive />
       </form>
 
       
-      <DataTable columns={columns} data={data} pagination responsive />
+      <DataTable columns={columnListarProductos} data={data} pagination responsive />
     </div>
   );
 };
