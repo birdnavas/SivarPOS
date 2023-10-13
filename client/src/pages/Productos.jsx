@@ -4,6 +4,7 @@ import { FaEdit } from "react-icons/fa";
 import { VscSaveAs } from "react-icons/vsc";
 import { AiFillDelete } from "react-icons/ai";
 import { GiCancel } from "react-icons/gi";
+
 import DataTable from "react-data-table-component";
 
 const Productos = (props) => {
@@ -170,150 +171,162 @@ const Productos = (props) => {
   const columns = [
     {
       name: "NOMBRE",
-      width: "200px",
-      selector: (row) => <div>
-        {editingProductId === row.id ? (
-          <input
-            className="w-full text-lg p-2 text-black border border-gray-300"
-            type="text"
-            name="name"
-            value={editingProduct.name}
-            onChange={(e) =>
-              setEditingProduct({
-                ...editingProduct,
-                name: e.target.value,
-              })
-            }
-          />
-        ) : (
-          <b>{row.name}</b>
-        )}
-      </div>
+      width: "210px",
+      selector: (row) => (
+        <div>
+          {editingProductId === row.id ? (
+            <input
+              className="w-full text-lg p-2 text-black border border-gray-300"
+              type="text"
+              name="name"
+              value={editingProduct.name}
+              onChange={(e) =>
+                setEditingProduct({
+                  ...editingProduct,
+                  name: e.target.value,
+                })
+              }
+            />
+          ) : (
+            <b>{row.name}</b>
+          )}
+        </div>
+      ),
     },
     {
       name: "DESCRIPCION",
-      width: "200px",
-      selector: (row) => <div>
-        {editingProductId === row.id ? (
-          <input
-            className="w-full text-lg p-2 text-black border border-gray-300"
-            type="text"
-            name="description"
-            value={editingProduct.description}
-            onChange={(e) =>
-              setEditingProduct({
-                ...editingProduct,
-                description: e.target.value,
-              })
-            }
-          />
-        ) : (
-          row.description
-        )}
-      </div>,
+      width: "210px",
+      selector: (row) => (
+        <div>
+          {editingProductId === row.id ? (
+            <input
+              className="w-full text-lg p-2 text-black border border-gray-300"
+              type="text"
+              name="description"
+              value={editingProduct.description}
+              onChange={(e) =>
+                setEditingProduct({
+                  ...editingProduct,
+                  description: e.target.value,
+                })
+              }
+            />
+          ) : (
+            row.description
+          )}
+        </div>
+      ),
     },
     {
       name: "EXISTENCIAS",
-      width: "200px",
-      selector: (row) => <div>
-        {editingProductId === row.id ? (
-          <input
-            className="w-full text-lg p-2 text-black border border-gray-300"
-            type="text"
-            name="stock"
-            value={editingProduct.stock}
-            onChange={(e) =>
-              setEditingProduct({
-                ...editingProduct,
-                stock: e.target.value,
-              })
-            }
-          />
-        ) : (
-          row.stock
-        )}
-      </div>,
+      width: "210px",
+      selector: (row) => (
+        <div>
+          {editingProductId === row.id ? (
+            <input
+              className="w-full text-lg p-2 text-black border border-gray-300"
+              type="text"
+              name="stock"
+              value={editingProduct.stock}
+              onChange={(e) =>
+                setEditingProduct({
+                  ...editingProduct,
+                  stock: e.target.value,
+                })
+              }
+            />
+          ) : (
+            row.stock
+          )}
+        </div>
+      ),
     },
     {
       name: "CADUCIDAD",
-      width: "200px",
-      selector: (row) => <div>
-        {editingProductId === row.id ? (
-          <input
-            className="w-full text-lg p-2 text-black border border-gray-300"
-            type="date"
-            name="expirationDate"
-            value={editingProduct.expirationDate}
-            onChange={(e) =>
-              setEditingProduct({
-                ...editingProduct,
-                expirationDate: e.target.value,
-              })
-            }
-          />
-        ) : (
-          row.expirationDate
-        )}
-      </div>,
+      width: "210px",
+      selector: (row) => (
+        <div>
+          {editingProductId === row.id ? (
+            <input
+              className="w-full text-lg p-2 text-black border border-gray-300"
+              type="date"
+              name="expirationDate"
+              value={editingProduct.expirationDate}
+              onChange={(e) =>
+                setEditingProduct({
+                  ...editingProduct,
+                  expirationDate: e.target.value,
+                })
+              }
+            />
+          ) : (
+            row.expirationDate
+          )}
+        </div>
+      ),
     },
     {
       name: "PRECIO",
-      width: "200px",
-      selector: (row) => <div>
-        {editingProductId === row.id ? (
-          <input
-            className="w-full text-lg p-2 text-black border border-gray-300"
-            type="text"
-            name="price"
-            value={editingProduct.price}
-            onChange={(e) =>
-              setEditingProduct({
-                ...editingProduct,
-                price: e.target.value,
-              })
-            }
-          />
-        ) : (
-          <>${row.price}</>
-        )}
-      </div>,
+      width: "210px",
+      selector: (row) => (
+        <div>
+          {editingProductId === row.id ? (
+            <input
+              className="w-full text-lg p-2 text-black border border-gray-300"
+              type="text"
+              name="price"
+              value={editingProduct.price}
+              onChange={(e) =>
+                setEditingProduct({
+                  ...editingProduct,
+                  price: e.target.value,
+                })
+              }
+            />
+          ) : (
+            <>${row.price}</>
+          )}
+        </div>
+      ),
     },
     {
       name: "IMAGEN URL",
-      width: "200px",
-      selector: (row) => <div>
-        {editingProductId === row.id ? (
-          <input
-            className="w-full text-lg p-2 text-black border border-gray-300"
-            type="text"
-            name="url"
-            value={editingProduct.url}
-            onChange={(e) =>
-              setEditingProduct({
-                ...editingProduct,
-                url: e.target.value,
-              })
-            }
-          />
-        ) : (
-          row.url.slice(0, 25)
-        )}
-      </div>,
+      width: "210px",
+      selector: (row) => (
+        <div>
+          {editingProductId === row.id ? (
+            <input
+              className="w-full text-lg p-2 text-black border border-gray-300"
+              type="text"
+              name="url"
+              value={editingProduct.url}
+              onChange={(e) =>
+                setEditingProduct({
+                  ...editingProduct,
+                  url: e.target.value,
+                })
+              }
+            />
+          ) : (
+            row.url.slice(0, 25)
+          )}
+        </div>
+      ),
     },
     {
       name: "EDITAR",
-      width: "200px",
+      width: "190px",
       selector: (row) => <div className="p-4">
         {editingProductId === row.id ? (  
         <>
           <button
-            className="mr-2 bg-[#4CAF50] rounded-[10px] p-2 text-4xl"
+            className="mr-4 bg-[#4CAF50] rounded-[10px] p-2 text-4xl text-black"
             onClick={onSaveEdit}
           >
             <VscSaveAs />
           </button>
           <button
-            className="mr-2 bg-red-500 rounded-[10px] p-2 text-4xl"
+            className=" bg-red-500 rounded-[10px] p-2 text-4xl text-black"
             onClick={onCancelEdit}
           >
             <GiCancel />
@@ -321,7 +334,7 @@ const Productos = (props) => {
         </>
       ) : (
         <button
-          className="mr-2 bg-[#FFD658] rounded-[10px] p-2 text-4xl"
+          className="mr-2 bg-[#FFD658] rounded-[10px] p-2 text-4xl text-black"
           onClick={() => onEdit(row.id)}
         >
           <FaEdit />
@@ -331,51 +344,53 @@ const Productos = (props) => {
     },
     {
       name: "ELIMINAR",
-      width: "200px",
-      selector: (row) => <div className="p-3">
-        <button
-            className="mr-2 bg-red-500 rounded-[10px] p-2 text-4xl"
+      width: "170px",
+      selector: (row) => (
+        <div>
+          <button
+            className=" bg-red-500 rounded-[10px] p-2 text-4xl text-black"
             onClick={() => onDeleteProduct(row.id)}
           >
             <AiFillDelete />
           </button>
-      </div>
+        </div>
+      ),
     },
   ];
   const columnsRegistrar = [
     {
       name: "NOMBRE",
-      width: "200px",
+      width: "210px",
       selector: (row) => <div className="text-black"><b>{row.name}</b></div>
     },
     {
       name: "DESCRIPCION",
-      width: "200px",
+      width: "210px",
       selector: (row) => <div className="text-black"><b>{row.description}</b></div>
     },
     {
       name: "EXISTENCIAS",
-      width: "200px",
+      width: "210px",
       selector: (row) => <div className="text-black"><b>{row.stock}</b></div>
     },
     {
       name: "CADUCIDAD",
-      width: "200px",
+      width: "210px",
       selector: (row) => <div className="text-black"><b>{row.expirationDate}</b></div>
     },
     {
       name: "PRECIO",
-      width: "200px",
+      width: "210px",
       selector: (row) => <div className="text-black"><b>{row.price}</b></div>
     },
     {
       name: "IMAGEN URL",
-      width: "200px",
+      width: "400px",
       selector: (row) => <div className="text-black"><b>{row.url}</b></div>
     },
     {
       name: "AGREGAR",
-      width: "200px",
+      width: "150px",
       selector: (row) => <div className="text-black"><b>{row.addProduct}</b></div>
     },
   ];
