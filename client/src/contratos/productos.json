@@ -39,9 +39,15 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "price",
-				"type": "uint256"
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "url",
+				"type": "string"
 			},
 			{
 				"indexed": false,
@@ -88,9 +94,15 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "price",
-				"type": "uint256"
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "url",
+				"type": "string"
 			}
 		],
 		"name": "ProductDeleted",
@@ -131,9 +143,15 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "newPrice",
-				"type": "uint256"
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "newUrl",
+				"type": "string"
 			}
 		],
 		"name": "ProductEdited",
@@ -143,37 +161,19 @@
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
+				"indexed": true,
 				"internalType": "uint256",
 				"name": "productId",
 				"type": "uint256"
 			},
 			{
 				"indexed": false,
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"indexed": false,
 				"internalType": "uint256",
-				"name": "quantity",
+				"name": "newStock",
 				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "totalPrice",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "buyer",
-				"type": "address"
 			}
 		],
-		"name": "ProductPurchased",
+		"name": "StockDecremented",
 		"type": "event"
 	},
 	{
@@ -199,12 +199,30 @@
 				"type": "string"
 			},
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "_price",
-				"type": "uint256"
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_url",
+				"type": "string"
 			}
 		],
 		"name": "addProduct",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_productId",
+				"type": "uint256"
+			}
+		],
+		"name": "decrementarStock",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -250,53 +268,19 @@
 				"type": "string"
 			},
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "_newPrice",
-				"type": "uint256"
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_newUrl",
+				"type": "string"
 			}
 		],
 		"name": "editProduct",
 		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_productId",
-				"type": "uint256"
-			}
-		],
-		"name": "getProductDetails",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "description",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "stock",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "expirationDate",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "price",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -361,30 +345,17 @@
 				"type": "string"
 			},
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "price",
-				"type": "uint256"
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "url",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_productId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_quantity",
-				"type": "uint256"
-			}
-		],
-		"name": "purchaseProduct",
-		"outputs": [],
-		"stateMutability": "payable",
 		"type": "function"
 	}
 ]

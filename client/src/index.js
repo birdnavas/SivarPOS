@@ -5,6 +5,7 @@ import App from './App';
 import { ThemeProvider } from './components/ThemeContext'
 import Background from './components/Background'
 import reportWebVitals from './reportWebVitals';
+import "toastify-js/src/toastify.css"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -9,7 +9,7 @@ const Layout = ({ children, ...props }) => {
             {props.Gerente? <><Sidebar /></>:<></>}
                 
                 <div className='grow'>
-                    <Navbar accountshow={props.accountshow} />
+                    <Navbar accountshow={props.accountshow} account={props.account} />
                     <div className='m-5'>{children}</div>
                 </div>
             </div>

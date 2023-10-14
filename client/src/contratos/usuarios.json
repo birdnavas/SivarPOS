@@ -1,5 +1,36 @@
 [
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "changeStatus",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_walletAddress",
+				"type": "string"
+			}
+		],
+		"name": "registerUser",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -11,43 +42,12 @@
 			{
 				"indexed": false,
 				"internalType": "bool",
-				"name": "estado",
+				"name": "status",
 				"type": "bool"
 			}
 		],
-		"name": "CambioDeMiTarea",
+		"name": "StatusChange",
 		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "cambioEstado",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_title",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_description",
-				"type": "string"
-			}
-		],
-		"name": "createTask",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -61,34 +61,53 @@
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "title",
+				"name": "name",
 				"type": "string"
 			},
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "description",
+				"name": "walletAddress",
 				"type": "string"
 			},
 			{
 				"indexed": false,
 				"internalType": "bool",
-				"name": "done",
+				"name": "registered",
 				"type": "bool"
 			},
 			{
 				"indexed": false,
 				"internalType": "uint256",
-				"name": "creatAt",
+				"name": "createdAt",
 				"type": "uint256"
 			}
 		],
-		"name": "TaskCreated",
+		"name": "UserRegistered",
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"name": "nameExists",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
-		"name": "taskCounter",
+		"name": "userCounter",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -107,7 +126,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "tasks",
+		"name": "users",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -116,23 +135,42 @@
 			},
 			{
 				"internalType": "string",
-				"name": "title",
+				"name": "name",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "description",
+				"name": "walletAddress",
 				"type": "string"
 			},
 			{
 				"internalType": "bool",
-				"name": "done",
+				"name": "registered",
 				"type": "bool"
 			},
 			{
 				"internalType": "uint256",
-				"name": "creatAt",
+				"name": "createdAt",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"name": "walletAddressExists",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
