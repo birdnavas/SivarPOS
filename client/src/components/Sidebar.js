@@ -7,8 +7,9 @@ import { FcShop } from 'react-icons/fc'
 import { FcCurrencyExchange } from 'react-icons/fc'
 import { FaUsers } from 'react-icons/fa'
 import { FcSurvey } from 'react-icons/fc'
-import Logo from '../assets/images/HappyPos.png'
+import Logo from '../assets/images/Happy.svg'
 import HamburgerButton from './HamburgerMenuButton/HamburgerButton'
+
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true)
@@ -38,7 +39,7 @@ const Sidebar = () => {
         />
         <Link>
           <div className={`flex ${open && 'gap-x-4'} items-center`}>
-            <img src={Logo} alt='' className='pl-2 w-1/2' />
+            <img src={Logo} alt='' className='w-full h-auto' />
             
           </div>
         </Link>
