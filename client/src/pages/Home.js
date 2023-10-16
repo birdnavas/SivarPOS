@@ -163,7 +163,7 @@ const Home = (props) => {
   }
 
   return (
-    <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y">
+    <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y pl-60">
       <table>
         <thead>
           <tr className="px-4 py-2 text-lg">

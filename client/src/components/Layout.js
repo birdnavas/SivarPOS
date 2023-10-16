@@ -5,7 +5,7 @@ import Sidebar from './Sidebar'
 const Layout = ({ children, ...props }) => {
     return (
         <>
-            <div className='flex flex-auto h-screen'>
+            <div className='flex flex-auto h-full'>
             {props.Gerente? <><Sidebar /></>:<></>}
                 
                 <div className='grow'>

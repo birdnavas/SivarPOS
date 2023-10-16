@@ -12,7 +12,7 @@ const Control = () => {
       .catch(err => console.log(err))
   }, [])
 
-    return <div className='dark:text-white flex justify-center'>
+    return <div className='dark:text-white flex justify-center pl-60'>
         
         <table className=''>
           <thead>

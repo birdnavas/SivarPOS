@@ -469,7 +469,7 @@ const Productos = (props) => {
 ]
 
   return (
-    <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y">
+    <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y pl-60">
       <form onSubmit={registrarInformacion}>
         <DataTable columns={columnsRegistrarProductos} data={dataRegistrarProductos} responsive />
       </form>

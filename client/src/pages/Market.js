@@ -114,7 +114,7 @@ const Market = (props) => {
   });
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap pl-60">
 
       <div className="bg-opacity-300 rounded-xl flex justify-center items-center w-full">
         <input
