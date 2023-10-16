@@ -7,7 +7,7 @@ import { FcShop } from 'react-icons/fc'
 import { FcCurrencyExchange } from 'react-icons/fc'
 import { FaUsers } from 'react-icons/fa'
 import { FcSurvey } from 'react-icons/fc'
-import Logo from '../assets/images/Happy.svg'
+import Logo from '../assets/images/Happylog.svg'
 import HamburgerButton from './HamburgerMenuButton/HamburgerButton'
 
 
