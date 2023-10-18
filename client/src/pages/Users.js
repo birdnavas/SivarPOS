@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
-import "../index.css";
+import { BsClipboard2Fill, BsClipboard2CheckFill } from "react-icons/bs";
 
 import Web3 from "web3";
 
