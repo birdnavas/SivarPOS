@@ -2,13 +2,22 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import BarraBusqueda from "./Searchbar";
 import StartToastifyInstance from "toastify-js";
-
+import ReactPaginate from "react-paginate"; // Importa el paquete by bladimir
 
 const Market = (props) => {
   const [allProducts, setAllProducts] = useState([]);
   const [search, setsearch] = useState("");
   const [ListarInformacion, setListarInformacion] = useState([]);
-  
+  /*- By Bladimir ----*/
+  const [currentPage, setCurrentPage] = useState(0); // Agrega un estado para la página actual
+  const PER_PAGE = 10; // Define cuántos elementos quieres por página
+  const offset = currentPage * PER_PAGE;
+  const pageCount = Math.ceil(ListarInformacion.length / PER_PAGE); // Calcula el número total de páginas
+
+  function handlePageClick({ selected: selectedPage }) {
+    setCurrentPage(selectedPage);
+  }
+  /*- fin By Bladimir ----*/
   const ListarRegistros = async () => {
     if (props.contractproductos) {
       try {
@@ -43,9 +52,8 @@ const Market = (props) => {
     }
   };
 
-
   const searcher = (e) => {
-    setsearch(e.target.value)
+    setsearch(e.target.value);
     setListarInformacion(allProducts);
     console.log(allProducts, "allProducts");
 
@@ -55,12 +63,10 @@ const Market = (props) => {
       return product.name.toLowerCase().includes(value);
     });
 
-    console.log(filter,"filter")
+    console.log(filter, "filter");
 
     setListarInformacion(filter);
-    
   };
-
 
   useEffect(() => {
     ListarRegistros();
@@ -82,13 +88,11 @@ const Market = (props) => {
       );
     }
     StartToastifyInstance({
-
       text: "Agregado al carrito",
 
       position: "center",
-      
-      duration: 3000
-      
+
+      duration: 3000,
     }).showToast();
   };
 
@@ -115,7 +119,6 @@ const Market = (props) => {
 
   return (
     <div className="flex flex-wrap pl-60">
-
       <div className="bg-opacity-300 rounded-xl flex justify-center items-center w-full">
         <input
           value={search}
@@ -124,34 +127,58 @@ const Market = (props) => {
           type="search"
           name="search"
           placeholder="Buscar"
-
         />
         <button
           type="submit"
           className="absolute top-0 right-0 mr-4 mt-7"
         ></button>
       </div>
-    
+
       <div className="dark:text-black w-full flex flex-wrap">
-        {ListarInformacion.filter((item) => item.id > 0).map((item) => (
-          <form
-          onSubmit={handleSubmit}
-          className="p-4 m-2 mt-5 bg-gray-200 rounded-md shadow-md"
-        >
-          <img src={item.url} className="w-40" />
-          <p className="text-xl font-semibold text-center">{item.name}</p>
-          <p className="text-lg text-center">${item.price}</p>
-          <div className="flex justify-center">
-            <button
-              onClick={() => handleAddButtonClick(item.id)}
-              className=" flex justify-center px-4 text-center py-2 mt-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+        {/*Inicia modificacion by Bladimir*/}
+        {ListarInformacion.slice(offset, offset + PER_PAGE) // Muestra solo los elementos de la página actual
+          .filter((item) => item.id > 0)
+          .map((item /*Fin modificacion by Bladimir*/) => (
+            <form
+              onSubmit={handleSubmit}
+              className="p-4 m-2 mt-5 bg-gray-200 rounded-md shadow-md"
             >
-              Agregar +
-            </button>
-          </div>
-        </form>
-        ))}
+              <img src={item.url} className="w-40" />
+              <p className="text-xl font-semibold text-center">{item.name}</p>
+              <p className="text-lg text-center">${item.price}</p>
+              <div className="flex justify-center">
+                <button
+                  onClick={() => handleAddButtonClick(item.id)}
+                  className=" flex justify-center px-4 text-center py-2 mt-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+                >
+                  Agregar +
+                </button>
+              </div>
+            </form>
+          ))}
       </div>
+      {/* Inicia modificacion by Bladimir*/}
+      <div className="flex justify-center items-center w-full md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5 mx-auto">
+        <ReactPaginate
+          previousLabel={"Anterior"}
+          nextLabel={"Siguiente"}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          containerClassName={"flex items-center justify-center my-4 space-x-3"}
+          pageLinkClassName={
+            "px-3 py-2 border rounded text-blue-500 hover:bg-blue-500 hover:text-white"
+          }
+          previousLinkClassName={
+            "px-3 py-2 border rounded text-blue-500 hover:bg-blue-500 hover:text-white"
+          }
+          nextLinkClassName={
+            "px-3 py-2 border rounded text-blue-500 hover:bg-blue-500 hover:text-white"
+          }
+          disabledClassName={"pagination__link--disabled"}
+          activeClassName={"text-white"}
+        />
+      </div>
+      {/* Inicia modificacion by Bladimir*/}
     </div>
   );
 };
