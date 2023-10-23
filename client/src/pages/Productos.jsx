@@ -164,6 +164,18 @@ const Productos = (props) => {
     }
   };
 
+  const toggleExpirationDate = () => {
+    // Esta función debe cambiar el valor de producto.expirationDate
+    // según la selección del usuario
+    if (producto.expirationDate !== "No aplica") {
+      setProducto({ ...producto, expirationDate: "No aplica" });
+    } else {
+      // Puedes establecer un valor inicial si lo deseas
+      setProducto({ ...producto, expirationDate: "" });
+    }
+  };
+  
+
   useEffect(() => {
     ListarRegistros();
   }, [props.contractProductos]);
@@ -219,7 +231,7 @@ const Productos = (props) => {
     },
     {
       name: "EXISTENCIAS",
-      width: "210px",
+      width: "157px",
       selector: (row) => (
         <div>
           {editingProductId === row.id ? (
@@ -375,7 +387,7 @@ const Productos = (props) => {
     },
     {
       name: "CADUCIDAD",
-      width: "210px",
+      width: "225px",
       selector: (row) => <div className="text-black"><b>{row.expirationDate}</b></div>
     },
     {
@@ -385,12 +397,12 @@ const Productos = (props) => {
     },
     {
       name: "IMAGEN URL",
-      width: "400px",
+      width: "250px",
       selector: (row) => <div className="text-black"><b>{row.url}</b></div>
     },
     {
       name: "AGREGAR",
-      width: "150px",
+      width: "14em",
       selector: (row) => <div className="text-black"><b>{row.addProduct}</b></div>
     },
   ];
@@ -427,16 +439,43 @@ const Productos = (props) => {
             className="w-full p-2 text-lg border border-gray-300"
           />
         </div>,
-        expirationDate: <div>
+        expirationDate: <div className="w-auto dark:text-white">
+        <label>
+          <input
+            type="checkbox"
+            name="expirationDateApplies"
+            checked={producto.expirationDate !== "No aplica"}
+            onChange={toggleExpirationDate}
+            className="mx-2"
+          />
+          Aplica
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            name="expirationDateDoesNotApply"
+            checked={producto.expirationDate === "No aplica"}
+            onChange={toggleExpirationDate}
+            className="mx-2"
+          />
+          No Aplica
+        </label>
+      {producto.expirationDate !== "No aplica" ? (
+        <div>
           <input
             type="date"
             id="expirationDate"
             name="expirationDate"
             onChange={ManejarFormulario}
             value={producto.expirationDate}
-            className="w-full p-2 text-lg border border-gray-300"
+            className="w-full text-lg p-2 border border-gray-300 text-black my-2"
           />
-        </div>,
+        </div>
+      ) : (
+        <></>
+      )}
+      </div>
+      ,
         price: <div>
           <input
             type="number"
@@ -459,7 +498,7 @@ const Productos = (props) => {
         </div>,
         addProduct: <div className="p-3">
           <button
-            className="block bg-[#FFD658] rounded-[10px] p-4 text-xl font-sans font-medium"
+            className="mx-16 my-4 block bg-[#FFD658] rounded-[10px] p-4 text-xl font-sans font-medium"
             type="submit"
           >
             <GrAdd />

@@ -24,7 +24,7 @@ const Navbar = (props) => {
     // Muestra una notificación
     StartToastifyInstance({
       text: "Dirección copiada",
-      position: "center",
+      position: "right",
       duration: 3000,
     }).showToast();
 

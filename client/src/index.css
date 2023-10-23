@@ -9,12 +9,14 @@
 @tailwind utilities;
 
 .rdt_Table .rdt_TableHeadRow{
-  @apply text-lg bg-[#3853DA] text-white w-full
+  @apply text-lg bg-[#3853DA] text-white w-auto text-center
 }
 
 .rdt_Table .rdt_TableBody .rdt_TableRow{
   @apply text-lg dark:text-white dark:bg-gray-800 text-black 
 }
+
+
 
 .rdt_Pagination {
   @apply dark:bg-gray-800 dark:text-white text-black
@@ -25,4 +27,7 @@
 }
 .bMuwEY{
   @apply pt-8
+}
+.gzxemp{
+  justify-content: center !important;
 }
