@@ -84,7 +84,7 @@ function Read() {
             </div>
           ) : null}
 
-          <Link className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' to="/control">Atras</Link>
+          <Link className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded pl-60' to="/control">Atras</Link>
         </div>
       ) : (
         <p>Loading...</p>

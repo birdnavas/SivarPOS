@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Cookies from "js-cookie";
-import axios from 'axios';
+import axios from "axios";
 import GetAccount from "../components/Lightning/GetAccount.js";
 import DisplayAccount from "../components/Lightning/DisplayAccount.js";
 import QRCard from "../components/Lightning/QRCard.js";
-import '../App.css';
+import "../App.css";
+import emailjs from '@emailjs/browser';
 
 const Home = (props) => {
   const [ListarInformacion, setListarInformacion] = useState([]);
@@ -155,15 +156,63 @@ const Home = (props) => {
   }, [props.paidIndicator]);
 
   const postfactura = (event) => {
-
-    axios.post('http://localhost:3030/users', { fecha: new Date().toLocaleString(), amount: totalProds, total: totalSum.toFixed(2), myList })
-      .then(res => {
-
+    axios
+      .post("http://localhost:3030/users", {
+        fecha: new Date().toLocaleString(),
+        amount: totalProds,
+        total: totalSum.toFixed(2),
+        myList,
       })
+      .then((res) => {});
+  };
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm('service_xsb90h8', 'template_uxnkay6', e.target, 'ELmY-b-ZQDw2QPqIx')
+      .then(
+        (result) => {
+          console.log('Email sent successfully:', result.text);
+        },
+        (error) => {
+          console.error('Email sending failed:', error.text);
+        }
+      );
+  };
+
+  function formatMyList(myList) {
+    if (myList.length === 0) {
+      return 'No items in the list.';
+    }
+  
+    const formattedList = myList.map((item, index) => {
+      return `${item.amount} x  ${item.product}  $${item.price}`;
+    });
+  
+    return formattedList.join('\n');
   }
 
   return (
     <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y pl-60">
+
+<form onSubmit={sendEmail}>
+
+      <input className="dark:text-black" type="email" name="user_email" />
+      <input
+        className="dark:text-black"
+        type="hidden"
+        name="message"
+        value={'|Qty|  |Item|   |Precio|'+`\n==================\n${formatMyList(myList)}\n==================\nTotal: $${totalSum.toFixed(2)}\n==================\n\nRegistrado: ${new Date().toLocaleString()}`}
+      />
+      <input
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        type="submit"
+        value="Send"
+      />
+    </form>
+
+    <hr />
       <table>
         <thead>
           <tr className="px-4 py-2 text-lg">
@@ -193,7 +242,6 @@ const Home = (props) => {
                 >
                   +
                 </button>
-
               </div>
 
               <td>
@@ -209,9 +257,6 @@ const Home = (props) => {
         </tbody>
       </table>
       Total: ${totalSum.toFixed(2)}
-
-
-
       <GetAccount passUpUserInfo={props.acceptUserInfo} />
       {props.userInfo && (
         <DisplayAccount
@@ -223,63 +268,90 @@ const Home = (props) => {
       {props.invoiceAndQuote && (
         <QRCard invoiceAndQuote={props.invoiceAndQuote} />
       )}
-      {props.paidIndicator && <> <div id="invoice-POS">
+      {props.paidIndicator && (
+        <>
+          {" "}
+          <div id="invoice-POS">
+            <center id="top">
+              <div class="logo"></div>
+              <div class="info">
+                <h2>Sivar POS</h2>
+              </div>
+            </center>
 
-        <center id="top">
-          <div class="logo"></div>
-          <div class="info">
-            <h2>Sivar POS</h2>
-          </div>
-        </center>
+            <div id="mid">
+              <div class="info">
+                <p>
+                  Col San Benito #759
+                  <br />
+                  Tel: 22577777
+                  <br />
+                </p>
+              </div>
+            </div>
 
-        <div id="mid">
-          <div class="info">
-            <p>
-              Col San Benito #759<br />
-              Tel: 22577777<br />
-            </p>
-          </div>
-        </div>
+            <div id="bot">
+              <div id="table">
+                <table>
+                  <tr className="tabletitle">
+                    <td className="item">
+                      <h2>Item</h2>
+                    </td>
+                    <td className="Hours">
+                      <h2>Qty</h2>
+                    </td>
+                    <td className="Rate">
+                      <h2>Precio</h2>
+                    </td>
+                  </tr>
 
-        <div id="bot">
+                  {receipt.map((row) => (
+                    <tr class="service">
+                      <td className="tableitem">
+                        <p className="itemtext">{row.product}</p>
+                      </td>
+                      <td className="tableitem">
+                        <p className="itemtext">{row.amount}</p>
+                      </td>
+                      <td className="tableitem">
+                        <p className="itemtext">${row.price}</p>
+                      </td>
+                    </tr>
+                  ))}
 
-          <div id="table">
-            <table>
-              <tr className="tabletitle">
-                <td className="item"><h2>Item</h2></td>
-                <td className="Hours"><h2>Qty</h2></td>
-                <td className="Rate"><h2>Precio</h2></td>
-              </tr>
+                  <tr className="tabletitle">
+                    <td></td>
+                    <td className="Rate">
+                      <h2>IVA</h2>
+                    </td>
+                    <td className="payment">
+                      <h2></h2>
+                    </td>
+                  </tr>
 
-              {receipt.map((row) => (
-                <tr class="service">
-                  <td className="tableitem"><p className="itemtext">{row.product}</p></td>
-                  <td className="tableitem"><p className="itemtext">{row.amount}</p></td>
-                  <td className="tableitem"><p className="itemtext">${row.price}</p></td>
-                </tr>))}
+                  <tr className="tabletitle">
+                    <td></td>
+                    <td className="Rate">
+                      <h2>Total</h2>
+                    </td>
+                    <td className="payment">
+                      <h2>${receipttotal}</h2>
+                    </td>
+                  </tr>
+                </table>
+              </div>
 
-              <tr className="tabletitle">
-                <td></td>
-                <td className="Rate"><h2>IVA</h2></td>
-                <td className="payment"><h2></h2></td>
-              </tr>
-
-              <tr className="tabletitle">
-                <td></td>
-                <td className="Rate"><h2>Total</h2></td>
-                <td className="payment"><h2>${receipttotal}</h2></td>
-              </tr>
-
-            </table>
-          </div>
-
-          <div id="legalcopy">
-            <p className="legal"><strong>Gracias por su compra!</strong>
-              Esta factura es con fines ilustrativos, como referecia de lo que se almacena en factura electronica.</p>
-          </div>
-
-        </div>
-      </div> </>}
+              <div id="legalcopy">
+                <p className="legal">
+                  <strong>Gracias por su compra!</strong>
+                  Esta factura es con fines ilustrativos, como referecia de lo
+                  que se almacena en factura electronica.
+                </p>
+              </div>
+            </div>
+          </div>{" "}
+        </>
+      )}
     </div>
   );
 };
