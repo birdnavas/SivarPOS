@@ -36,14 +36,15 @@ const Users = (props) => {
   );
 
   return (
-    <div className="flex justify-center gap-20 dark:text-white">
-      <form
+    <div className="flex justify-center gap-20 p-4 dark:text-white sm:p-8 md:p-12 lg:p-16">
+         <div className="p-8 bg-white rounded shadow-md w-70"> 
+         <form
         onSubmit={props.registrarInformacion}
-        className="p-4 bg-white-100 my-2"
+        className="p-4 my-2 bg-white-100"
       >
         <label
           for="name"
-          className="block text-gray-700 pt-6 pb-2 font-bold mb-2 dark:text-white"
+          className="block pt-6 pb-2 mb-2 font-bold text-gray-700 dark:text-white"
         >
           Nombre
         </label>
@@ -51,7 +52,7 @@ const Users = (props) => {
           type="text"
           id="name"
           name="name"
-          className="border rounded w-96 py-3 px-4 text-lg text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300"
+          className="px-4 py-3 text-lg leading-tight text-gray-700 border rounded w-96 focus:outline-none focus:ring focus:border-blue-300"
           placeholder="Escribe tu nombre"
           onChange={props.ManejarFormulario}
           value={props.formulario.name}
@@ -67,7 +68,7 @@ const Users = (props) => {
 
         <label
           for="walletAddress"
-          className="block text-gray-700 pt-6 pb-2 font-bold mb-2 dark:text-white"
+          className="block pt-6 pb-2 mb-2 font-bold text-gray-700 dark:text-white"
         >
           Cuenta
         </label>
@@ -75,7 +76,7 @@ const Users = (props) => {
           type="text"
           id="walletAddress"
           name="walletAddress"
-          className="border rounded w-96 py-3 px-4 text-lg text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300"
+          className="px-4 py-3 text-lg leading-tight text-gray-700 border rounded w-96 focus:outline-none focus:ring focus:border-blue-300"
           placeholder="Cuenta wallet"
           onChange={props.ManejarFormulario}
           value={props.formulario.walletAddress}
@@ -93,17 +94,21 @@ const Users = (props) => {
           <div className="text-red-500">La dirección no es válida</div>
         )}
 
-        <div className="flex items-center pt-6 justify-between">
+        <div className="flex items-center justify-between pt-6">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white text-xl font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300"
+            className="px-4 py-2 text-xl font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300"
           >
             Registrar
           </button>
         </div>
       </form>
+         
+         
+          </div>
+      
 
-      <div className="table-container">
+      <div className="p-4 table-container ">
         <table className="table-auto">
           <thead>
             <tr>
@@ -129,10 +134,10 @@ const Users = (props) => {
                     {item.registered ? "Gerente" : "Cajero"}
                   </button>
                 </td>
-                <td className="border rounded-lg table-auto border-slate-200 px-4 text-xl">
+                <td className="px-4 text-xl border rounded-lg table-auto border-slate-200">
                   {item.name}
                 </td>
-                <td className="border rounded-lg table-auto border-slate-200 px-4 text-xl">
+                <td className="px-4 text-xl border rounded-lg table-auto border-slate-200">
                   {item.walletAddress}
                 </td>
               </tr>
@@ -141,7 +146,7 @@ const Users = (props) => {
         </table>
 
         {/* Paginación */}
-        <div className="text-center mt-4">
+        <div className="mt-4 text-center">
           <ReactPaginate
             previousLabel="Anterior"
             nextLabel="Siguiente"

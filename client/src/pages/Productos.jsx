@@ -176,7 +176,7 @@ const Productos = (props) => {
         <div>
           {editingProductId === row.id ? (
             <input
-              className="w-full text-lg p-2 text-black border border-gray-300"
+              className="w-full p-2 text-lg text-black border border-gray-300"
               type="text"
               name="name"
               value={editingProduct.name}
@@ -200,7 +200,7 @@ const Productos = (props) => {
         <div>
           {editingProductId === row.id ? (
             <input
-              className="w-full text-lg p-2 text-black border border-gray-300"
+              className="w-full p-2 text-lg text-black border border-gray-300"
               type="text"
               name="description"
               value={editingProduct.description}
@@ -224,7 +224,7 @@ const Productos = (props) => {
         <div>
           {editingProductId === row.id ? (
             <input
-              className="w-full text-lg p-2 text-black border border-gray-300"
+              className="w-full p-2 text-lg text-black border border-gray-300"
               type="text"
               name="stock"
               value={editingProduct.stock}
@@ -248,7 +248,7 @@ const Productos = (props) => {
         <div>
           {editingProductId === row.id ? (
             <input
-              className="w-full text-lg p-2 text-black border border-gray-300"
+              className="w-full p-2 text-lg text-black border border-gray-300"
               type="date"
               name="expirationDate"
               value={editingProduct.expirationDate}
@@ -272,7 +272,7 @@ const Productos = (props) => {
         <div>
           {editingProductId === row.id ? (
             <input
-              className="w-full text-lg p-2 text-black border border-gray-300"
+              className="w-full p-2 text-lg text-black border border-gray-300"
               type="text"
               name="price"
               value={editingProduct.price}
@@ -296,7 +296,7 @@ const Productos = (props) => {
         <div>
           {editingProductId === row.id ? (
             <input
-              className="w-full text-lg p-2 text-black border border-gray-300"
+              className="w-full p-2 text-lg text-black border border-gray-300"
               type="text"
               name="url"
               value={editingProduct.url}
@@ -404,7 +404,7 @@ const Productos = (props) => {
             name="name"
             onChange={ManejarFormulario}
             value={producto.name}
-            className="w-full text-lg p-2 border border-gray-300"
+            className="w-full p-2 text-lg border border-gray-300"
           />
         </div>,
         description: <div>
@@ -414,7 +414,7 @@ const Productos = (props) => {
             name="description"
             onChange={ManejarFormulario}
             value={producto.description}
-            className="w-full text-lg p-2 border border-gray-300"
+            className="w-full p-2 text-lg border border-gray-300"
           />
         </div>,
         stock: <div>
@@ -424,7 +424,7 @@ const Productos = (props) => {
             name="stock"
             onChange={ManejarFormulario}
             value={producto.stock}
-            className="w-full text-lg p-2 border border-gray-300"
+            className="w-full p-2 text-lg border border-gray-300"
           />
         </div>,
         expirationDate: <div>
@@ -434,7 +434,7 @@ const Productos = (props) => {
             name="expirationDate"
             onChange={ManejarFormulario}
             value={producto.expirationDate}
-            className="w-full text-lg p-2 border border-gray-300"
+            className="w-full p-2 text-lg border border-gray-300"
           />
         </div>,
         price: <div>
@@ -444,7 +444,7 @@ const Productos = (props) => {
             name="price"
             onChange={ManejarFormulario}
             value={producto.price}
-            className="w-full text-lg p-2 border border-gray-300"
+            className="w-full p-2 text-lg border border-gray-300"
           />
         </div>,
         url: <div>
@@ -454,7 +454,7 @@ const Productos = (props) => {
             name="url"
             onChange={ManejarFormulario}
             value={producto.url}
-            className="w-full text-lg p-2 border border-gray-300"
+            className="w-full p-2 text-lg border border-gray-300"
           />
         </div>,
         addProduct: <div className="p-3">
@@ -469,7 +469,9 @@ const Productos = (props) => {
 ]
 
   return (
-    <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y pl-60">
+    
+
+<div className="flex grid justify-center grid-cols-1 divide-y m-7 dark:text-white pl-60">
       <form onSubmit={registrarInformacion}>
         <DataTable columns={columnsRegistrarProductos} data={dataRegistrarProductos} responsive />
       </form>
@@ -477,6 +479,10 @@ const Productos = (props) => {
       
       <DataTable columns={columnListarProductos} data={data} pagination responsive />
     </div>
+
+
+   
+    
   );
 };
 

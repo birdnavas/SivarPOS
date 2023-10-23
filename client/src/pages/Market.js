@@ -114,9 +114,9 @@ const Market = (props) => {
   });
 
   return (
-    <div className="flex flex-wrap pl-60">
+    <div className="flex flex-wrap pl-60 ">
 
-      <div className="bg-opacity-300 rounded-xl flex justify-center items-center w-full">
+      <div className="flex items-center justify-center w-full bg-opacity-300 rounded-xl">
         <input
           value={search}
           onChange={searcher}
@@ -132,7 +132,7 @@ const Market = (props) => {
         ></button>
       </div>
     
-      <div className="dark:text-black w-full flex flex-wrap">
+      <div className="flex flex-wrap w-full dark:text-black sm:p-8 md:p-12 lg:p-16">
         {ListarInformacion.filter((item) => item.id > 0).map((item) => (
           <form
           onSubmit={handleSubmit}
@@ -144,7 +144,7 @@ const Market = (props) => {
           <div className="flex justify-center">
             <button
               onClick={() => handleAddButtonClick(item.id)}
-              className=" flex justify-center px-4 text-center py-2 mt-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+              className="flex justify-center px-4 py-2 mt-2 font-bold text-center text-white bg-blue-500 rounded-full hover:bg-blue-700"
             >
               Agregar +
             </button>
