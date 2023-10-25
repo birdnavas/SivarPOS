@@ -31,3 +31,5 @@
 .gzxemp{
   justify-content: center !important;
 }
+
+body{@apply dark:bg-gray-800}

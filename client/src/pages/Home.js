@@ -203,12 +203,18 @@ const Home = (props) => {
         className="dark:text-black"
         type="hidden"
         name="message"
-        value={'|Qty|  |Item|   |Precio|'+`\n==================\n${formatMyList(myList)}\n==================\nTotal: $${totalSum.toFixed(2)}\n==================\n\nRegistrado: ${new Date().toLocaleString()}`}
+        value={'--------------------------------------------\n|Qty|   |Item|   |Precio|'+`
+        --------------------------------------------
+        ${formatMyList(myList)}
+        --------------------------------------------
+        Total: $${totalSum.toFixed(2)}
+        --------------------------------------------
+        Registrado: ${new Date().toLocaleString()}`}
       />
       <input
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         type="submit"
-        value="Send"
+        value="Enviar por correo"
       />
     </form>
 

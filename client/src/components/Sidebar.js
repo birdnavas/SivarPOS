@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import Cookies from "js-cookie";
 
 import { BsArrowLeftCircle } from 'react-icons/bs'
 import { AiFillPieChart } from 'react-icons/ai'
 import { FcShop } from 'react-icons/fc'
-import { FcCurrencyExchange } from 'react-icons/fc'
+import { FcInTransit } from 'react-icons/fc'
 import { FaUsers } from 'react-icons/fa'
-import { FcSurvey } from 'react-icons/fc'
+import { FcViewDetails } from 'react-icons/fc'
 import Logo from '../assets/images/Happylog.svg'
 import HamburgerButton from './HamburgerMenuButton/HamburgerButton'
 
@@ -15,13 +16,23 @@ const Sidebar = () => {
   const [open, setOpen] = useState(true)
   const [mobileMenu, setMobileMenu] = useState(false)
   const location = useLocation()
+  const [myList, setMyList] = useState([]);
+  const [prods, setProds] = useState(0);
+
+  useEffect(() => {
+    const cookieValue = Cookies.get("myList");
+    const parsedList = cookieValue ? JSON.parse(cookieValue) : [];
+    setMyList(parsedList);
+    setProds(myList.length);
+    setProds(myList.length);
+  }, [myList]);
 
   const Menus = [
-    { title: 'Caja', path: '/', src: <FcCurrencyExchange /> },
+    { title: 'Caja', count: <span className='bg-gray-500 text-white font-bold py-1 px-3 rounded-full'>{prods}</span>, path: '/', src: <FcInTransit /> },
     { title: 'Tienda', path: '/tienda', src: <FcShop /> },
-    { title: 'Inventario', path: '/productos', src: <FcSurvey /> },
+    { title: 'Inventario', path: '/productos', src: <FcViewDetails /> },
     { title: 'Panel', path: '/control', src: <AiFillPieChart />, gap: 'true' },
-    { title: 'Usuarios', path: '/users', src: <FaUsers /> }
+    { title: 'Admin', path: '/users', src: <FaUsers /> }
   ]
 
   return (
@@ -62,6 +73,8 @@ const Sidebar = () => {
                 >
                   {menu.title}
                 </span>
+                {open ? menu.count: null}
+                
               </li>
             </Link>
           ))}

@@ -19,7 +19,7 @@ const Control = () => {
 
     <div className="flex gap-4">
 
-      <div className='bg-white rounded-sm p-4 flex-1 border border-gray-200 flex items-center'>
+      <div className='dark:bg-gray-800 bg-white rounded-sm p-4 flex-1 border dark:border-gray-600 border-gray-200 flex items-center'>
         <div className="rounded-full h-12 w-12 flex items-center justify-center bg-sky-500">
           <IoBagHandle className="text-2xl text-white" />
         </div>
@@ -32,7 +32,7 @@ const Control = () => {
         </div>
       </div>
 
-      <div className='bg-white rounded-sm p-4 flex-1 border border-gray-200 flex items-center'>
+      <div className='dark:bg-gray-800 bg-white rounded-sm p-4 flex-1 border dark:border-gray-600 border-gray-200 flex items-center'>
       <div className="rounded-full h-12 w-12 flex items-center justify-center bg-orange-600">
         <IoPieChart className="text-2xl text-white" />
       </div>
@@ -45,7 +45,7 @@ const Control = () => {
       </div>
       </div>
 
-      <div className='bg-white rounded-sm p-4 flex-1 border border-gray-200 flex items-center'>
+      <div className='dark:bg-gray-800 bg-white rounded-sm p-4 flex-1 border dark:border-gray-600 border-gray-200 flex items-center'>
       <div className="rounded-full h-12 w-12 flex items-center justify-center bg-yellow-400">
         <IoPeople className="text-2xl text-white" />
       </div>
@@ -58,7 +58,7 @@ const Control = () => {
       </div>
       </div>
 
-      <div className='bg-white rounded-sm p-4 flex-1 border border-gray-200 flex items-center'>
+      <div className='dark:bg-gray-800 bg-white rounded-sm p-4 flex-1 border dark:border-gray-600 border-gray-200 flex items-center'>
       <div className="rounded-full h-12 w-12 flex items-center justify-center bg-green-600">
         <IoCart className="text-2xl text-white" />
       </div>

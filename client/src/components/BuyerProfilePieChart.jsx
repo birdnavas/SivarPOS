@@ -24,7 +24,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 
 export default function BuyerProfilePieChart() {
 	return (
-		<div className="w-[19rem] h-[22rem] bg-white p-4 rounded-sm border border-gray-200 flex flex-col">
+		<div className="dark:bg-gray-800 w-[19rem] h-[22rem] bg-white p-4 rounded-sm border dark:border-gray-600 border-gray-200 flex flex-col">
 			<strong className="text-gray-700 font-medium">No definido</strong>
 			<div className="mt-3 w-full flex-1 text-xs">
 				<ResponsiveContainer width="100%" height="100%">
@@ -35,7 +35,7 @@ export default function BuyerProfilePieChart() {
 							cy="45%"
 							labelLine={false}
 							label={renderCustomizedLabel}
-							outerRadius={105}
+							outerRadius={114}
 							fill="#8884d8"
 							dataKey="value"
 						>
