@@ -36,7 +36,7 @@ const Users = (props) => {
   );
 
   return (
-    <div className="flex justify-center gap-20 p-4 dark:text-white sm:p-8 md:p-12 lg:p-16">
+    <div className="flex justify-center gap-20 p-4 dark:text-white">
          <div className="p-8 bg-white rounded shadow-md w-70"> 
          <form
         onSubmit={props.registrarInformacion}

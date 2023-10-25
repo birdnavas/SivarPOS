@@ -141,11 +141,13 @@ const Market = (props) => {
           .map((item /*Fin modificacion by Bladimir*/) => (
             <form
               onSubmit={handleSubmit}
-              className="p-4 m-2 mt-5 bg-gray-200 rounded-md shadow-md"
+              className="dark:bg-gray-600 p-4 m-2 mt-5 bg-gray-200 rounded-md shadow-md"
             >
               <img src={item.url} className="w-40" />
-              <p className="text-xl font-semibold text-center">{item.name}</p>
-              <p className="text-lg text-center">${item.price}</p>
+              <p className="dark:text-white text-xl font-semibold text-center">{item.name}</p>
+              <hr/>
+              <p className="dark:text-white text-lg text-center">{item.description}</p>
+              <p className="text-lg text-center bg-gray-400 text-white font-bold py-2 px-4 rounded-full">${item.price}</p>
               <div className="flex justify-center">
                 <button
                   onClick={() => handleAddButtonClick(item.id)}
