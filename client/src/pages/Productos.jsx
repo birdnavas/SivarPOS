@@ -233,7 +233,7 @@ const Productos = (props) => {
       name: "EXISTENCIAS",
       width: "157px",
       selector: (row) => (
-        <div>
+        <div className="">
           {editingProductId === row.id ? (
             <input
               className="w-full p-2 text-lg text-black border border-gray-300"
@@ -356,7 +356,7 @@ const Productos = (props) => {
     },
     {
       name: "ELIMINAR",
-      width: "170px",
+      width: "187px",
       selector: (row) => (
         <div>
           <button
@@ -392,7 +392,7 @@ const Productos = (props) => {
     },
     {
       name: "PRECIO",
-      width: "210px",
+      width: "205px",
       selector: (row) => <div className="text-black"><b>{row.price}</b></div>
     },
     {
@@ -402,7 +402,7 @@ const Productos = (props) => {
     },
     {
       name: "AGREGAR",
-      width: "14em",
+      width: "15.2em",
       selector: (row) => <div className="text-black"><b>{row.addProduct}</b></div>
     },
   ];
