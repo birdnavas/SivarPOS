@@ -145,6 +145,40 @@
       "total": "0.00",
       "myList": [],
       "id": 23
+    },
+    {
+      "fecha": "26/10/2023, 12:48:52",
+      "amount": 1,
+      "total": "0.12",
+      "myList": [
+        {
+          "id": 1,
+          "product": "Clorets",
+          "price": "0.06",
+          "amount": 2
+        }
+      ],
+      "id": 24
+    },
+    {
+      "fecha": "26/10/2023, 15:49:00",
+      "amount": 2,
+      "total": "0.18",
+      "myList": [
+        {
+          "id": 2,
+          "product": "Chicklin",
+          "price": "0.12",
+          "amount": 1
+        },
+        {
+          "id": 3,
+          "product": "Clorets",
+          "price": "0.06",
+          "amount": 1
+        }
+      ],
+      "id": 25
     }
   ]
 }

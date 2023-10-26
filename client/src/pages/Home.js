@@ -150,6 +150,7 @@ const Home = (props) => {
   }, [props.invoiceAndQuote]);
   useEffect(() => {
     if (props.paidIndicator) {
+      formRef.current.requestSubmit();
       postfactura();
       deleteAllItems();
     }
@@ -193,10 +194,12 @@ const Home = (props) => {
     return formattedList.join('\n');
   }
 
+  const formRef = useRef(null);
+
   return (
     <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y pl-48">
 
-      <form onSubmit={sendEmail}>
+      <form ref={formRef} onSubmit={sendEmail}>
 
         <input className="p-1 dark:bg-gray-700 border-2 border-sky-500" type="email" name="user_email" />
         <input
@@ -210,11 +213,6 @@ const Home = (props) => {
         Total: $${totalSum.toFixed(2)}
         --------------------------------------------
         Registrado: ${new Date().toLocaleString()}`}
-        />
-        <input
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          type="submit"
-          value="Enviar por correo"
         />
       </form>
 

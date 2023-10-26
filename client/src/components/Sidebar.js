@@ -24,8 +24,7 @@ const Sidebar = () => {
     const parsedList = cookieValue ? JSON.parse(cookieValue) : [];
     setMyList(parsedList);
     setProds(myList.length);
-    setProds(myList.length);
-  }, [myList]);
+  }, []);
 
   const Menus = [
     { title: 'Caja', count: <span className='bg-gray-500 text-white font-bold py-1 px-3 rounded-full'>{prods}</span>, path: '/', src: <FcInTransit /> },
