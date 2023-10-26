@@ -36,79 +36,82 @@ const Users = (props) => {
   );
 
   return (
-    <div className="flex justify-center gap-20 p-4 dark:text-white ">
-         <div className="p-8 bg-white rounded shadow-md w-70"> 
-         <form
-        onSubmit={props.registrarInformacion}
-        className="p-4 my-2 bg-white-100"
-      >
-        <label
-          for="name"
-          className="block pt-6 pb-2 mb-2 font-bold text-gray-700 dark:text-white"
+    <div className="pl-48 flex justify-center gap-4 p-4 dark:text-white ">
+      <div className="w-96 h-fit p-3 dark:bg-gray-700 bg-white rounded shadow-md border">
+
+        <h2 className="font-bold">Registrar miembro</h2>
+
+        <form
+          onSubmit={props.registrarInformacion}
+          className="p-4 my-2 bg-white-100"
         >
-          Nombre
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          className="px-4 py-3 text-lg leading-tight text-gray-700 border rounded w-96 focus:outline-none focus:ring focus:border-blue-300"
-          placeholder="Escribe tu nombre"
-          onChange={props.ManejarFormulario}
-          value={props.formulario.name}
-          onBlur={() => handleBlur("name")}
-          required
-        />
-
-        {props.formulario.name === "" && formTouched && (
-          <div className="text-red-500">
-            Este campo no puede estar en blanco.
-          </div>
-        )}
-
-        <label
-          for="walletAddress"
-          className="block pt-6 pb-2 mb-2 font-bold text-gray-700 dark:text-white"
-        >
-          Cuenta
-        </label>
-        <input
-          type="text"
-          id="walletAddress"
-          name="walletAddress"
-          className="px-4 py-3 text-lg leading-tight text-gray-700 border rounded w-96 focus:outline-none focus:ring focus:border-blue-300"
-          placeholder="Cuenta wallet"
-          onChange={props.ManejarFormulario}
-          value={props.formulario.walletAddress}
-          onBlur={() => handleBlur("walletAddress")}
-          required
-        />
-
-        {props.formulario.walletAddress === "" && formTouched1 && (
-          <div className="text-red-500">
-            Este campo no puede estar en blanco.
-          </div>
-        )}
-
-        {!isValidAddress(props.formulario.walletAddress) && formTouched1 && (
-          <div className="text-red-500">La dirección no es válida</div>
-        )}
-
-        <div className="flex items-center justify-between pt-6">
-          <button
-            type="submit"
-            className="px-4 py-2 text-xl font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300"
+          <label
+            for="name"
+            className="pt-6 pb-2 mb-2 font-bold dark:text-gray-200 text-gray-600"
           >
-            Registrar
-          </button>
-        </div>
-      </form>
-         
-         
-          </div>
-      
+            Nombre
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            className="dark:bg-gray-600 text-white px-4 py-3 text-lg leading-tight text-gray-700 border rounded w-full focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Escribe tu nombre"
+            onChange={props.ManejarFormulario}
+            value={props.formulario.name}
+            onBlur={() => handleBlur("name")}
+            required
+          />
 
-      <div className="p-4 table-container ">
+          {props.formulario.name === "" && formTouched && (
+            <div className="text-red-500">
+              Este campo no puede estar en blanco.
+            </div>
+          )}
+
+          <label
+            for="walletAddress"
+            className="dark:text-gray-200 pt-6 pb-2 mb-2 font-bold text-gray-600"
+          >
+            Cuenta
+          </label>
+          <input
+            type="text"
+            id="walletAddress"
+            name="walletAddress"
+            className="dark:bg-gray-600 text-white px-4 py-3 text-lg leading-tight text-gray-700 border rounded w-full focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Cuenta wallet"
+            onChange={props.ManejarFormulario}
+            value={props.formulario.walletAddress}
+            onBlur={() => handleBlur("walletAddress")}
+            required
+          />
+
+          {props.formulario.walletAddress === "" && formTouched1 && (
+            <div className="text-red-500">
+              Este campo no puede estar en blanco.
+            </div>
+          )}
+
+          {!isValidAddress(props.formulario.walletAddress) && formTouched1 && (
+            <div className="text-red-500">La dirección no es válida</div>
+          )}
+
+          <div className="flex items-center justify-between pt-6">
+            <button
+              type="submit"
+              className="px-4 py-2 text-xl font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300"
+            >
+              Registrar
+            </button>
+          </div>
+        </form>
+
+
+      </div>
+
+
+      <div>
         <table className="table-auto">
           <thead>
             <tr>
@@ -125,7 +128,7 @@ const Users = (props) => {
           </thead>
           <tbody>
             {currentItems.map((item) => (
-              <tr className="text-center" key={item.id}>
+              <tr className="w-40 text-center" key={item.id}>
                 <td className="align-middle">
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg w-[125px] mx-auto my-auto text-xl"
@@ -134,10 +137,10 @@ const Users = (props) => {
                     {item.registered ? "Gerente" : "Cajero"}
                   </button>
                 </td>
-                <td className="px-4 text-xl border rounded-lg table-auto border-slate-200">
+                <td className="px-4 text-xl border-y rounded-lg table-auto">
                   {item.name}
                 </td>
-                <td className="px-4 text-xl border rounded-lg table-auto border-slate-200">
+                <td className="break-all px-4 text-xl border-y rounded-lg table-auto border-slate-200">
                   {item.walletAddress}
                 </td>
               </tr>

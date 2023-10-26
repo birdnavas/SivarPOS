@@ -15,7 +15,7 @@ const Control = () => {
       .catch(err => console.log(err))
   }, [])
 
-  return <div className='dark:text-white flex justify-center pl-60 flex flex-col gap-4'>
+  return <div className='dark:text-white flex justify-center pl-48 flex flex-col gap-4'>
 
     <div className="flex gap-4">
 
@@ -24,9 +24,9 @@ const Control = () => {
           <IoBagHandle className="text-2xl text-white" />
         </div>
         <div className="pl-4">
-          <span className="text-sm text-gray-500 font-light">Ventas totales</span>
+          <span className="dark:text-gray-300 text-gray-500 font-bold">Ventas totales</span>
           <div className="flex items-center">
-            <strong className="text-xl text-gray-700 font-semibold">$54232</strong>
+            <strong className="dark:text-gray-400 text-xl text-gray-700 font-semibold">$54232</strong>
             <span className="text-sm text-green-500 pl-2">+343</span>
           </div>
         </div>
@@ -37,9 +37,9 @@ const Control = () => {
         <IoPieChart className="text-2xl text-white" />
       </div>
       <div className="pl-4">
-        <span className="text-sm text-gray-500 font-light">Gastos</span>
+        <span className="dark:text-gray-300 text-gray-500 font-bold">Gastos</span>
         <div className="flex items-center">
-          <strong className="text-xl text-gray-700 font-semibold">$3423</strong>
+          <strong className="dark:text-gray-400 text-xl text-gray-700 font-semibold">$3423</strong>
           <span className="text-sm text-green-500 pl-2">-343</span>
         </div>
       </div>
@@ -50,9 +50,9 @@ const Control = () => {
         <IoPeople className="text-2xl text-white" />
       </div>
       <div className="pl-4">
-        <span className="text-sm text-gray-500 font-light">Clientes</span>
+        <span className="dark:text-gray-300 text-gray-500 font-bold">Clientes</span>
         <div className="flex items-center">
-          <strong className="text-xl text-gray-700 font-semibold">12313</strong>
+          <strong className="dark:text-gray-400 text-xl text-gray-700 font-semibold">12313</strong>
           <span className="text-sm text-red-500 pl-2">-30</span>
         </div>
       </div>
@@ -63,9 +63,9 @@ const Control = () => {
         <IoCart className="text-2xl text-white" />
       </div>
       <div className="pl-4">
-        <span className="text-sm text-gray-500 font-light">Ordenes totales</span>
+        <span className="dark:text-gray-300 text-gray-500 font-bold">Ordenes totales</span>
         <div className="flex items-center">
-          <strong className="text-xl text-gray-700 font-semibold">16432</strong>
+          <strong className="dark:text-gray-400 text-xl text-gray-700 font-semibold">16432</strong>
           <span className="text-sm text-red-500 pl-2">-43</span>
         </div>
       </div>
@@ -80,7 +80,7 @@ const Control = () => {
 			</div>
 
 
-    <table className='w-[50rem] divide-y divide-gray-200 dark:divide-gray-700'>
+    <table className='w-[30rem]'>
       <thead className='bg-gray-50 dark:bg-gray-700'>
         <tr>
           <th className='text-center'>Fecha</th>

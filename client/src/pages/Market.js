@@ -118,12 +118,12 @@ const Market = (props) => {
   });
 
   return (
-    <div className="flex flex-wrap pl-60">
+    <div className="flex flex-wrap pl-48">
       <div className="bg-opacity-300 rounded-xl flex justify-center items-center w-full">
         <input
           value={search}
           onChange={searcher}
-          className="mx-auto rounded-md w-[50rem] focus:outline-none text-center p-2 bg-slate-100 focus:border-b-2 focus:transition"
+          className="dark:bg-gray-600 mx-auto rounded-md w-[40rem] focus:outline-none text-center p-2 bg-slate-100 focus:border-2 focus:transition"
           type="search"
           name="search"
           placeholder="Buscar"
@@ -141,13 +141,13 @@ const Market = (props) => {
           .map((item /*Fin modificacion by Bladimir*/) => (
             <form
               onSubmit={handleSubmit}
-              className="dark:bg-gray-600 p-4 m-2 mt-5 bg-gray-200 rounded-md shadow-md"
+              className="dark:bg-gray-600 p-3 m-2 mt-5 bg-gray-200 border border-indigo-300 rounded shadow-xl"
             >
               <img src={item.url} className="w-40" />
               <p className="dark:text-white text-xl font-semibold text-center">{item.name}</p>
               <hr/>
               <p className="dark:text-white text-lg text-center">{item.description}</p>
-              <p className="text-lg text-center bg-gray-400 text-white font-bold py-2 px-4 rounded-full">${item.price}</p>
+              <p className="text-lg text-center bg-gray-400 dark:bg-gray-500 text-white font-bold rounded-full">${item.price}</p>
               <div className="flex justify-center">
                 <button
                   onClick={() => handleAddButtonClick(item.id)}

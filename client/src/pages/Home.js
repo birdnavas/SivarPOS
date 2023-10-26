@@ -163,7 +163,7 @@ const Home = (props) => {
         total: totalSum.toFixed(2),
         myList,
       })
-      .then((res) => {});
+      .then((res) => { });
   };
 
   const sendEmail = (e) => {
@@ -185,40 +185,41 @@ const Home = (props) => {
     if (myList.length === 0) {
       return 'No items in the list.';
     }
-  
+
     const formattedList = myList.map((item, index) => {
       return `${item.amount} x  ${item.product}  $${item.price}`;
     });
-  
+
     return formattedList.join('\n');
   }
 
   return (
-    <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y pl-60">
+    <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y pl-48">
 
-<form onSubmit={sendEmail}>
+      <form onSubmit={sendEmail}>
 
-      <input className="dark:text-black" type="email" name="user_email" />
-      <input
-        className="dark:text-black"
-        type="hidden"
-        name="message"
-        value={'--------------------------------------------\n|Qty|   |Item|   |Precio|'+`
+        <input className="p-1 dark:bg-gray-700 border-2 border-sky-500" type="email" name="user_email" />
+        <input
+          className="dark:text-black"
+          type="hidden"
+          name="message"
+          value={'--------------------------------------------\n|Qty|   |Item|   |Precio|' + `
         --------------------------------------------
         ${formatMyList(myList)}
         --------------------------------------------
         Total: $${totalSum.toFixed(2)}
         --------------------------------------------
         Registrado: ${new Date().toLocaleString()}`}
-      />
-      <input
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        type="submit"
-        value="Enviar por correo"
-      />
-    </form>
+        />
+        <input
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          type="submit"
+          value="Enviar por correo"
+        />
+      </form>
 
-    <hr />
+      <br/>
+
       <table>
         <thead>
           <tr className="px-4 py-2 text-lg">
@@ -261,8 +262,18 @@ const Home = (props) => {
             </tr>
           ))}
         </tbody>
+
+        <tbody class="border-b-2 border-white-500 border-t-2 border-white-500">
+          <tr className="text-center">
+            <td className="font-bold">TOTAL:</td>
+            <td className="bg-indigo-500 text-white font-bold py-2 px-4 rounded-full ml-2">${totalSum.toFixed(2)}</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
       </table>
-      Total: ${totalSum.toFixed(2)}
+      
+
       <GetAccount passUpUserInfo={props.acceptUserInfo} />
       {props.userInfo && (
         <DisplayAccount

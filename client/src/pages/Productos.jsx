@@ -373,32 +373,32 @@ const Productos = (props) => {
     {
       name: "NOMBRE",
       width: "210px",
-      selector: (row) => <div className="text-black"><b>{row.name}</b></div>
+      selector: (row) => <b>{row.name}</b>
     },
     {
       name: "DESCRIPCION",
       width: "210px",
-      selector: (row) => <div className="text-black"><b>{row.description}</b></div>
+      selector: (row) => <b>{row.description}</b>
     },
     {
       name: "EXISTENCIAS",
       width: "210px",
-      selector: (row) => <div className="text-black"><b>{row.stock}</b></div>
+      selector: (row) => <b>{row.stock}</b>
     },
     {
       name: "CADUCIDAD",
       width: "225px",
-      selector: (row) => <div className="text-black"><b>{row.expirationDate}</b></div>
+      selector: (row) => <b>{row.expirationDate}</b>
     },
     {
       name: "PRECIO",
       width: "205px",
-      selector: (row) => <div className="text-black"><b>{row.price}</b></div>
+      selector: (row) => <b>{row.price}</b>
     },
     {
       name: "IMAGEN URL",
       width: "250px",
-      selector: (row) => <div className="text-black"><b>{row.url}</b></div>
+      selector: (row) => <b>{row.url}</b>
     },
     {
       name: "AGREGAR",
@@ -416,7 +416,7 @@ const Productos = (props) => {
             name="name"
             onChange={ManejarFormulario}
             value={producto.name}
-            className="w-full p-2 text-lg border border-gray-300"
+            className="dark:bg-gray-600 w-full p-2 text-lg border border-gray-300"
           />
         </div>,
         description: <div>
@@ -426,7 +426,7 @@ const Productos = (props) => {
             name="description"
             onChange={ManejarFormulario}
             value={producto.description}
-            className="w-full p-2 text-lg border border-gray-300"
+            className="dark:bg-gray-600 w-full p-2 text-lg border border-gray-300"
           />
         </div>,
         stock: <div>
@@ -436,7 +436,7 @@ const Productos = (props) => {
             name="stock"
             onChange={ManejarFormulario}
             value={producto.stock}
-            className="w-full p-2 text-lg border border-gray-300"
+            className="dark:bg-gray-600 w-full p-2 text-lg border border-gray-300"
           />
         </div>,
         expirationDate: <div className="w-auto dark:text-white">
@@ -468,7 +468,7 @@ const Productos = (props) => {
             name="expirationDate"
             onChange={ManejarFormulario}
             value={producto.expirationDate}
-            className="w-full text-lg p-2 border border-gray-300 text-black my-2"
+            className="dark:bg-gray-600 w-full text-lg p-2 border border-gray-300 text-black my-2"
           />
         </div>
       ) : (
@@ -483,7 +483,7 @@ const Productos = (props) => {
             name="price"
             onChange={ManejarFormulario}
             value={producto.price}
-            className="w-full p-2 text-lg border border-gray-300"
+            className="dark:bg-gray-600 w-full p-2 text-lg border border-gray-300"
           />
         </div>,
         url: <div>
@@ -493,7 +493,7 @@ const Productos = (props) => {
             name="url"
             onChange={ManejarFormulario}
             value={producto.url}
-            className="w-full p-2 text-lg border border-gray-300"
+            className="dark:bg-gray-600 w-full p-2 text-lg border border-gray-300"
           />
         </div>,
         addProduct: <div className="p-3">
@@ -510,7 +510,7 @@ const Productos = (props) => {
   return (
     
 
-<div className="flex grid justify-center grid-cols-1 divide-y m-7 dark:text-white pl-60">
+<div className="flex grid justify-center grid-cols-1 divide-y dark:text-white pl-48">
       <form onSubmit={registrarInformacion}>
         <DataTable columns={columnsRegistrarProductos} data={dataRegistrarProductos} responsive />
       </form>
