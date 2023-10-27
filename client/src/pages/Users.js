@@ -96,7 +96,7 @@ const Users = (props) => {
         </div>
       </div>
 
-      <div className="w-96 h-fit p-3 dark:bg-gray-700 bg-white rounded shadow-md border">
+      <div className="w-96 h-fit p-3 ml-20 dark:bg-gray-700 bg-white rounded shadow-md border">
 
         <h2 className="font-bold">Registrar miembro</h2>
 

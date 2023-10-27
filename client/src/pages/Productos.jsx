@@ -468,7 +468,7 @@ const Productos = (props) => {
             name="expirationDate"
             onChange={ManejarFormulario}
             value={producto.expirationDate}
-            className="dark:bg-gray-600 w-full text-lg p-2 border border-gray-300 text-black my-2"
+            className="dark:bg-gray-600 w-full text-lg p-2 border border-gray-300 my-2"
           />
         </div>
       ) : (
@@ -510,7 +510,7 @@ const Productos = (props) => {
   return (
     
 
-<div className="flex grid justify-center grid-cols-1 divide-y dark:text-white pl-48">
+<div className="flex grid justify-center divide-y dark:text-white pl-40 ">
       <form onSubmit={registrarInformacion}>
         <DataTable columns={columnsRegistrarProductos} data={dataRegistrarProductos} responsive />
       </form>
