@@ -6,9 +6,11 @@ import DisplayAccount from "../components/Lightning/DisplayAccount.js";
 import QRCard from "../components/Lightning/QRCard.js";
 import "../App.css";
 import emailjs from '@emailjs/browser';
+import { useGlobalState } from "../components/GlobalState.jsx";
 
 const Home = (props) => {
   const [ListarInformacion, setListarInformacion] = useState([]);
+  const {globalState, setGlobalState} = useGlobalState();
   const ListarRegistros = async () => {
     if (props.contractproductos) {
       try {
@@ -86,12 +88,33 @@ const Home = (props) => {
   };
 
   const removeItem = (id) => {
-    const updatedList = myList.filter((item) => item.id !== id);
-    setMyList(updatedList);
-    Cookies.set("myList", JSON.stringify(updatedList), { expires: 7 });
+    setGlobalState(globalState - 1)
+
+    let cookieValue = JSON.parse(Cookies.get("myList"));
+
+    console.log(cookieValue, "Cookies")
+
+    const ArrayAnterior = [];
+
+    cookieValue.map((item) => {
+      if(item.id !== id){
+        ArrayAnterior.push(item);
+      }
+    })
+
+    console.log(ArrayAnterior, "Array")
+
+    setMyList(ArrayAnterior);
+    
+    Cookies.set("myList", JSON.stringify(ArrayAnterior), { expires: 7 });
+
+    cookieValue = JSON.parse(Cookies.get("myList"));
+
+    console.log(cookieValue, "Cookies despues")
   };
 
   const deleteAllItems = () => {
+    console.log("Delete")
     setMyList([]);
     Cookies.remove("myList");
   };

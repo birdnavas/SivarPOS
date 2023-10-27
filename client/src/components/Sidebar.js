@@ -10,6 +10,7 @@ import { FaUsers } from 'react-icons/fa'
 import { FcViewDetails } from 'react-icons/fc'
 import Logo from '../assets/images/Happylog.svg'
 import HamburgerButton from './HamburgerMenuButton/HamburgerButton'
+import { useGlobalState } from './GlobalState.jsx';
 
 
 const Sidebar = () => {
@@ -19,15 +20,17 @@ const Sidebar = () => {
   const [myList, setMyList] = useState([]);
   const [prods, setProds] = useState(0);
 
-  useEffect(() => {
-    const cookieValue = Cookies.get("myList");
-    const parsedList = cookieValue ? JSON.parse(cookieValue) : [];
-    setMyList(parsedList);
-    setProds(myList.length);
-  }, []);
+  // useEffect(() => {
+  //   const cookieValue = Cookies.get("myList");
+  //   const parsedList = cookieValue ? JSON.parse(cookieValue) : [];
+  //   setMyList(parsedList);
+  //   setProds(myList.length);
+  // }, []);
+
+  const {globalState, setGlobalState} = useGlobalState();
 
   const Menus = [
-    { title: 'Caja', count: <span className='bg-gray-500 text-white font-bold py-1 px-3 rounded-full'>{prods}</span>, path: '/', src: <FcInTransit /> },
+    { title: 'Caja', count: <span className='bg-gray-500 text-white font-bold py-1 px-3 rounded-full'>{globalState}</span>, path: '/', src: <FcInTransit /> },
     { title: 'Tienda', path: '/tienda', src: <FcShop /> },
     { title: 'Inventario', path: '/productos', src: <FcViewDetails /> },
     { title: 'Panel', path: '/control', src: <AiFillPieChart />, gap: 'true' },

@@ -20,6 +20,7 @@ import Users from "./pages/Users.js";
 import Tienda from "./pages/Market.js";
 
 import Read from "./pages/Read.js";
+import { GlobalStateProvider } from "./components/GlobalState.jsx";
 
 function App() {
   const [Metamask, setMetamask] = useState(false);
@@ -220,6 +221,7 @@ function App() {
   return (
     <div className="dark:text-white">
       <BrowserRouter>
+      <GlobalStateProvider>
         <Layout Gerente={Gerente} accountshow={accountshow} account={account}>
           <Routes>
             <Route
@@ -272,6 +274,7 @@ function App() {
             <Route path="/read/:id" element={<Read />}></Route>
           </Routes>
         </Layout>
+        </GlobalStateProvider>
       </BrowserRouter>
     </div>
   );

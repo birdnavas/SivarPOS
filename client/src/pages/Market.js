@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import BarraBusqueda from "./Searchbar";
 import StartToastifyInstance from "toastify-js";
 import ReactPaginate from "react-paginate"; // Importa el paquete by bladimir
+import { useGlobalState } from "../components/GlobalState";
 
 const Market = (props) => {
   const [allProducts, setAllProducts] = useState([]);
@@ -13,6 +14,12 @@ const Market = (props) => {
   const PER_PAGE = 10; // Define cuántos elementos quieres por página
   const offset = currentPage * PER_PAGE;
   const pageCount = Math.ceil(ListarInformacion.length / PER_PAGE); // Calcula el número total de páginas
+  const [myList, setMyList] = useState([]);
+  const [formData, setFormData] = useState({
+    product: "",
+    price: "",
+    amount: "1",
+  });
 
   function handlePageClick({ selected: selectedPage }) {
     setCurrentPage(selectedPage);
@@ -78,9 +85,10 @@ const Market = (props) => {
     console.log(formData);
     addItem();
   }
-
+  const {globalState, setGlobalState} = useGlobalState();
   const handleAddButtonClick = (itemId) => {
     // Do something with the itemId,
+    setGlobalState(globalState + 1)
     console.log(`Item with ID ${itemId} added`);
     {
       ListarInformacion.filter((item) => item.id == itemId).map((item) =>
@@ -97,25 +105,46 @@ const Market = (props) => {
   };
 
   const addItem = () => {
-    const id = myList.length + 1;
+    const id = JSON.parse(Cookies.get("myList")).length + 1;
     const { product, price, amount } = formData;
     if (product && price && amount) {
       // Check if all fields are filled
+
+      let cookieValue = JSON.parse(Cookies.get("myList"));
+
+      const ArrayAnterior = [];
+
+      const ArrayNuevo = [];
+
+      cookieValue.map((item) => {
+        ArrayAnterior.push(item);
+      })
+
+      let contador = 0;
+
+      ArrayAnterior.map((item) => {
+        contador = contador + 1;
+        ArrayNuevo.push({ id: contador, product: item.product, price: item.price, amount: parseInt(item.amount, 10)})
+      })
+
       const newRow = { id, product, price, amount: parseInt(amount, 10) };
-      const updatedList = [...myList, newRow];
-      setMyList(updatedList);
-      Cookies.set("myList", JSON.stringify(updatedList), { expires: 7 });
+
+      console.log(cookieValue, "Holaaaaaa")
+
+      ArrayNuevo.push(newRow)
+
+      console.log(ArrayNuevo, "Holaaaaaafbsjfsd")
+
+      setMyList(ArrayNuevo);
+      Cookies.set("myList", JSON.stringify(ArrayNuevo), { expires: 7 });
       // Clear the form after adding an item
       setFormData({ product: "", price: "", amount: "1" });
+
+      console.log(formData, "Form data")
     }
   };
 
-  const [myList, setMyList] = useState([]);
-  const [formData, setFormData] = useState({
-    product: "",
-    price: "",
-    amount: "1",
-  });
+  
 
   return (
     <div className="flex flex-wrap pl-48">
