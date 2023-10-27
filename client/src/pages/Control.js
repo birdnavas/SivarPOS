@@ -19,20 +19,18 @@ const Control = () => {
   }, [])
 
   useEffect(() => {
-    data.map((element, index) => {
 
-      let total = 0;
-      let sumitem = 0;
-      for (let i = 0; i < data.length; i++) {
+    let total = 0;
+    let sumitem = 0;
+    data.map((element, index) => {
         let suma = parseFloat(element.total);
         let items = parseFloat(element.amount);
         total = parseFloat(suma) + parseFloat(total)
         sumitem = items + sumitem
-      }
-      setItemprom(sumitem/data.length)
-      setSum(total.toFixed(2))
-      setGasprom(total/data.length)
     });
+    setItemprom(sumitem / data.length)
+    setSum(total.toFixed(2))
+    setGasprom(total / data.length)
   })
 
   return <div className='dark:text-white flex justify-center pl-48 flex flex-col gap-4'>

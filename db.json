@@ -137,6 +137,26 @@
         }
       ],
       "id": 25
+    },
+    {
+      "fecha": "26/10/2023, 21:52:50",
+      "amount": 2,
+      "total": "0.41",
+      "myList": [
+        {
+          "id": 1,
+          "product": "Pelota",
+          "price": "0.35",
+          "amount": 1
+        },
+        {
+          "id": 2,
+          "product": "Clorets",
+          "price": "0.06",
+          "amount": 1
+        }
+      ],
+      "id": 26
     }
   ]
 }
