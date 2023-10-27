@@ -61,7 +61,7 @@ const Sidebar = () => {
                 className={`flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
                         ${menu.gap ? 'mt-9' : 'mt-2'} ${
                   location.pathname === menu.path &&
-                  'bg-gray-200 dark:bg-gray-700'
+                  'bg-gray-300 dark:bg-gray-700'
                 }`}
               >
                 <span className='text-2xl'>{menu.src}</span>

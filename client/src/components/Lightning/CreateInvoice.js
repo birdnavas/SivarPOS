@@ -34,14 +34,14 @@ const CreateInvoice = props => {
 	}
 	
 	return (
-		<div className="CreateInvoice">
+		<div className='flex justify-center'>
 			<form onSubmit={getInvoice}>
 				<div className="InvoiceDetails">
 				<label><p>{/*props.currency*/}</p>
 					<input type='hidden' step='.00000001' name='amountInput' value={props.totalSum}/>
 				</label>
 				</div>
-				<input className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full' type='submit' value='PAGAR' name='submitButton'/>
+				<input className='text-white bg-[#FF9119] hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 mr-2 mb-2' type='submit' value='Pagar con Bitcoin o USDT' name='submitButton'/>
 			</form>
 		</div>
 		)

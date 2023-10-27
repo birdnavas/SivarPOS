@@ -9,7 +9,7 @@
 @tailwind utilities;
 
 .rdt_Table .rdt_TableHeadRow {
-  @apply text-lg bg-[#3853DA] text-white w-auto text-center w-60;
+  @apply text-lg bg-[#3853DA] text-white w-auto text-center;
 }
 
 .rdt_Table .rdt_TableBody .rdt_TableRow {

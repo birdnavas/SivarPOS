@@ -97,7 +97,6 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    // Calculate and update the total sum whenever myList changes
     const sum = myList.reduce((acc, row) => acc + row.price * row.amount, 0);
     //const sum2 = myList.length;
     setTotalSum(sum);
@@ -106,8 +105,6 @@ const Home = (props) => {
   }, [myList]);
 
   const handleAddButtonClick = (itemId) => {
-    // Do something with the itemId,
-    console.log(`Item with ID ${itemId} added`);
     {
       ListarInformacion.filter((item) => item.id == itemId).map((item) =>
         setFormData({ product: item.name, price: item.price, amount: "1" })
@@ -117,8 +114,6 @@ const Home = (props) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("You clicked submit.");
-    console.log(formData);
     addItem();
   }
 
@@ -174,17 +169,17 @@ const Home = (props) => {
       .sendForm('service_xsb90h8', 'template_uxnkay6', e.target, 'ELmY-b-ZQDw2QPqIx')
       .then(
         (result) => {
-          console.log('Email sent successfully:', result.text);
+          console.log('Email enviado:', result.text);
         },
         (error) => {
-          console.error('Email sending failed:', error.text);
+          console.error('Email no enviado:', error.text);
         }
       );
   };
 
   function formatMyList(myList) {
     if (myList.length === 0) {
-      return 'No items in the list.';
+      return 'Lista vacia.';
     }
 
     const formattedList = myList.map((item, index) => {
@@ -198,25 +193,6 @@ const Home = (props) => {
 
   return (
     <div className="dark:text-white flex justify-center grid grid-cols-1 divide-y pl-48">
-
-      <form ref={formRef} onSubmit={sendEmail}>
-
-        <input className="p-1 dark:bg-gray-700 border-2 border-sky-500" type="email" name="user_email" />
-        <input
-          className="dark:text-black"
-          type="hidden"
-          name="message"
-          value={'--------------------------------------------\n|Qty|   |Item|   |Precio|' + `
-        --------------------------------------------
-        ${formatMyList(myList)}
-        --------------------------------------------
-        Total: $${totalSum.toFixed(2)}
-        --------------------------------------------
-        Registrado: ${new Date().toLocaleString()}`}
-        />
-      </form>
-
-      <br/>
 
       <table>
         <thead>
@@ -261,16 +237,30 @@ const Home = (props) => {
           ))}
         </tbody>
 
-        <tbody class="border-b-2 border-white-500 border-t-2 border-white-500">
+        <tfoot class="border-t-2 border-white-500">
           <tr className="text-center">
             <td className="font-bold">TOTAL:</td>
             <td className="bg-indigo-500 text-white font-bold py-2 px-4 rounded-full ml-2">${totalSum.toFixed(2)}</td>
             <td></td>
             <td></td>
           </tr>
-        </tbody>
+        </tfoot>
       </table>
-      
+
+      <br />
+
+      <form style={{ margin: "0 auto" }} ref={formRef} onSubmit={sendEmail}>
+        <input className="p-1 dark:bg-gray-700 border-2 border-sky-500" type="email" name="user_email" />
+        <input type="hidden" name="message"
+          value={'--------------------------------------------\n|Qty|   |Item|   |Precio|' + `
+        --------------------------------------------
+        ${formatMyList(myList)}
+        --------------------------------------------
+        Total: $${totalSum.toFixed(2)}
+        --------------------------------------------
+        Registrado: ${new Date().toLocaleString()}`}
+        />
+      </form>
 
       <GetAccount passUpUserInfo={props.acceptUserInfo} />
       {props.userInfo && (
@@ -280,8 +270,8 @@ const Home = (props) => {
           totalSum={totalSum.toFixed(2)}
         />
       )}
-      {props.invoiceAndQuote && (
-        <QRCard invoiceAndQuote={props.invoiceAndQuote} />
+      {props.invoiceAndQuote && (<><br/>
+        <QRCard invoiceAndQuote={props.invoiceAndQuote} /></>
       )}
       {props.paidIndicator && (
         <>
@@ -290,7 +280,7 @@ const Home = (props) => {
             <center id="top">
               <div class="logo"></div>
               <div class="info">
-                <h2>Sivar POS</h2>
+                <h2>Happi POS</h2>
               </div>
             </center>
 
@@ -337,7 +327,7 @@ const Home = (props) => {
                   <tr className="tabletitle">
                     <td></td>
                     <td className="Rate">
-                      <h2>IVA</h2>
+                      <h2>IVA(13%)</h2>
                     </td>
                     <td className="payment">
                       <h2></h2>
